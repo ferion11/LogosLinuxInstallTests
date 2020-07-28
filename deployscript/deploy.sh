@@ -206,14 +206,6 @@ echo "... waiting 60s to Logos start:"
 sleep 30
 printscreen
 
-echo "* closing all windows"
-xdotool search --name "" key alt+f4
-sleep 7
-
-# Alternative to test only
-#sleep 60 && printscreen
-ps ux | grep wine
-
 
 # kill Xvfb whenever you feel like it
 kill -15 "${Xvfb_PID}"
