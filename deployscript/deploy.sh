@@ -21,31 +21,28 @@ apt update
 apt install -y aptitude wget file git tar gzip bzip2 grep sed procps libjpeg-turbo8 mpg123 wine xvfb xdotool imagemagick x11-apps zenity
 #===========================================================================================
 
+close_question_1_yes_windows() {
+	while ! WID=$(xdotool search --name "Question: Install Logos Bible"); do
+		sleep 3
+	done
+	printscreen
+	echo "* Sending installer keystrokes..."
+	xdotool key --delay 1000 Tab
+	sleep 1
+	xdotool key --delay 1000 Tab
+	sleep 1
+	xdotool key --delay 1000 space
+	sleep 2
+}
+
 close_question_yes_windows() {
 	while ! WID=$(xdotool search --name "Question:*"); do
 		sleep 3
 	done
 	printscreen
 	echo "* Sending installer keystrokes..."
-	xdotool key --window $WID --delay 2000 space
+	xdotool key --delay 1000 space
 	sleep 2
-}
-
-close_question_2tab_yes_windows() {
-	while ! WID=$(xdotool search --name "Question:*"); do
-		sleep 3
-	done
-	printscreen
-	echo "* Sending installer keystrokes..."
-	xdotool key --window $WID --delay 2000 Tab Tab space
-	sleep 2
-}
-
-close_question_no_end_windows() {
-	echo "* close with NO"
-	close_question_2tab_yes_windows
-	echo "* confirm the cancel"
-	close_question_yes_windows
 }
 
 close_wine_mono_init_windows() {
@@ -54,7 +51,9 @@ close_wine_mono_init_windows() {
 	done
 	printscreen
 	echo "Sending installer keystrokes..."
-	xdotool key --window $WID --delay 2000 Tab space
+	xdotool key --delay 1000 Tab
+	sleep 1
+	xdotool key --delay 1000 space
 	sleep 2
 }
 
@@ -64,7 +63,9 @@ close_wine_gecko_init_windows() {
 	done
 	printscreen
 	echo "Sending installer keystrokes..."
-	xdotool key --window $WID --delay 2000 Tab space
+	xdotool key --delay 1000 Tab
+	sleep 1
+	xdotool key --delay 1000 space
 	sleep 2
 }
 
@@ -83,20 +84,28 @@ logos_install_window(){
 	done
 	printscreen
 	echo "* Sending installer keystrokes..."
-	xdotool key --window $WID --delay 2000 space
+	xdotool key --delay 1000 space
 	sleep 2
 	printscreen
-	xdotool key --window $WID --delay 2000 space Tab Tab Tab space
+	xdotool key --delay 1000 space
+	sleep 1
+	xdotool key --delay 1000 Tab
+	sleep 1
+	xdotool key --delay 1000 Tab
+	sleep 1
+	xdotool key --delay 1000 Tab
+	sleep 1
+	xdotool key --delay 1000 space
 	sleep 2
 	printscreen
-	xdotool key --window $WID --delay 2000 space
+	xdotool key --delay 1000 space
 	sleep 2
 	printscreen
-	xdotool key --window $WID --delay 2000 space
+	xdotool key --delay 1000 space
 	echo "... waiting 120s for the last screen"
 	sleep 120
 	printscreen
-	xdotool key --window $WID --delay 2000 space
+	xdotool key --delay 1000 space
 }
 
 finish_the_script_at_end() {
@@ -133,7 +142,7 @@ echo "* Starting install_AppImageWine_and_Logos.sh"
 # Starting Steps here:
 
 echo "* Question: using the AppImage installation (first option):"
-close_question_2tab_yes_windows
+close_question_1_yes_windows
 
 
 echo "* Question: wine bottle:"
@@ -143,7 +152,6 @@ close_question_yes_windows
 echo "* Waiting to initialize wine..."
 # 2 times, one for 32bit and another for 64bit (maybe 2)
 echo "* wine mono cancel:"
-finish_the_script_at_end
 close_wine_mono_init_windows
 echo "* wine gecko cancel:"
 close_wine_gecko_init_windows
@@ -185,8 +193,9 @@ sleep 120
 printscreen
 
 echo "* closing all"
-"$HOME/LogosBible_Linux_P/Logos.sh wine wineserver -k"
-
+cd "$HOME/LogosBible_Linux_P/"
+"./Logos.sh wine wineserver -k"
+cd -
 
 # Alternative to test only
 #sleep 60 && printscreen
