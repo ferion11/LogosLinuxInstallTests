@@ -144,6 +144,10 @@ echo "* Starting install_AppImageWine_and_Logos.sh"
 echo "* Question: using the AppImage installation (first option):"
 close_question_1_yes_windows
 
+echo "* Downloading AppImage:"
+wait_window_and_print "Downloading *"
+sleep 7
+
 
 echo "* Question: wine bottle:"
 close_question_yes_windows
@@ -176,6 +180,10 @@ echo "* end of the 8min waiting"
 
 echo "* Question: download and install Logos"
 close_question_yes_windows
+
+echo "* Downloading Logos:"
+wait_window_and_print "Downloading *"
+sleep 7
 
 echo "* Logos install window:"
 logos_install_window
