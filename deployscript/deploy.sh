@@ -158,6 +158,7 @@ echo "* Waiting to initialize wine..."
 echo "* wine mono cancel:"
 close_wine_mono_init_windows
 echo "* wine gecko cancel:"
+finish_the_script_at_end
 close_wine_gecko_init_windows
 
 
