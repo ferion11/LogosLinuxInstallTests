@@ -102,15 +102,14 @@ logos_install_window(){
 	sleep 2
 	printscreen
 	xdotool key --delay 1000 space
-	echo "... waiting 5min for the last screen ..."
+	echo "... waiting 4min for the last screen ..."
+	printscreen
+	sleep 120
+	echo "... only 2min pass, screenshot, more 2min to go ..."
 	sleep 60
-	echo "... only 1min pass, screenshot, more 4min to go ..."
-	printscreen
-	sleep 120
-	echo "... only 3min pass, screenshot, more 2min to go ..."
-	printscreen
-	sleep 120
-	echo "... end of 5min, screenshot and space key:"
+	echo "... only 3min pass, screenshot, more 1min to go ..."
+	sleep 60
+	echo "... end of 4min, screenshot and space key:"
 	printscreen
 	xdotool key --delay 1000 space
 }
@@ -204,13 +203,12 @@ echo "* Question: run Logos.sh"
 close_question_yes_windows
 
 echo "... waiting 60s to Logos start:"
-sleep 60
+sleep 30
 printscreen
 
-echo "* closing all"
-cd "$HOME/LogosBible_Linux_P/"
-"./Logos.sh wine wineserver -k"
-cd -
+echo "* closing all windows"
+xdotool search --name "" key alt+f4
+sleep 7
 
 # Alternative to test only
 #sleep 60 && printscreen
