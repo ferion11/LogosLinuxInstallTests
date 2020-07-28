@@ -1,5 +1,5 @@
 #!/bin/bash
-export SCRIPT_INSTALL_URL="https://github.com/ferion11/LogosLinuxInstaller/releases/download/v2.0-rc1/install_AppImageWine_and_Logos.sh"
+export SCRIPT_INSTALL_URL="https://github.com/ferion11/LogosLinuxInstaller/releases/download/v2.0-rc2/install_AppImageWine_and_Logos.sh"
 
 #=========================
 die() { echo >&2 "$*"; exit 1; };
@@ -154,7 +154,6 @@ echo "* Waiting to initialize wine..."
 echo "* wine mono cancel:"
 close_wine_mono_init_windows
 echo "* wine gecko cancel:"
-finish_the_script_at_end
 close_wine_gecko_init_windows
 
 
