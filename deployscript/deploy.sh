@@ -18,7 +18,7 @@ printscreen() {
 dpkg --add-architecture i386
 apt update
 #apt install -y aptitude wget file bzip2 gcc-multilib
-apt install -y aptitude wget file git tar gzip bzip2 grep sed procps libjpeg-turbo8 mpg123 wine xvfb xdotool imagemagick x11-apps
+apt install -y aptitude wget file git tar gzip bzip2 grep sed procps libjpeg-turbo8 mpg123 wine xvfb xdotool imagemagick x11-apps zenity
 #===========================================================================================
 
 close_question_yes_windows() {
