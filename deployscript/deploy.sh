@@ -190,14 +190,15 @@ logos_install_window
 
 
 echo "* Question: clean temp files"
+finish_the_script_at_end
 close_question_yes_windows
 
 
 echo "* Question: run Logos.sh"
 close_question_yes_windows
 
-echo "... waiting 120s to Logos start:"
-sleep 120
+echo "... waiting 60s to Logos start:"
+sleep 60
 printscreen
 
 echo "* closing all"
