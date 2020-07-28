@@ -102,8 +102,15 @@ logos_install_window(){
 	sleep 2
 	printscreen
 	xdotool key --delay 1000 space
-	echo "... waiting 120s for the last screen"
+	echo "... waiting 5min for the last screen ..."
+	sleep 60
+	echo "... only 1min pass, screenshot, more 4min to go ..."
+	printscreen
 	sleep 120
+	echo "... only 3min pass, screenshot, more 2min to go ..."
+	printscreen
+	sleep 120
+	echo "... end of 5min, screenshot and space key:"
 	printscreen
 	xdotool key --delay 1000 space
 }
@@ -190,7 +197,6 @@ logos_install_window
 
 
 echo "* Question: clean temp files"
-finish_the_script_at_end
 close_question_yes_windows
 
 
