@@ -99,6 +99,19 @@ logos_install_window(){
 	xdotool key --window $WID --delay 2000 space
 }
 
+finish_the_script_at_end() {
+	echo "------- Ending for DEBUG -------"
+	# some more info:
+	ps ux | grep wine
+	printscreen
+
+	kill -15 "${Xvfb_PID}"
+	tar cvzf screenshots.tar.gz ./screenshot*
+	mv screenshots.tar.gz result/
+
+	exit 0
+}
+
 #===========================================================================================
 
 wget -c "${SCRIPT_INSTALL_URL}"
@@ -130,6 +143,7 @@ close_question_yes_windows
 echo "* Waiting to initialize wine..."
 # 2 times, one for 32bit and another for 64bit (maybe 2)
 echo "* wine mono cancel:"
+finish_the_script_at_end
 close_wine_mono_init_windows
 echo "* wine gecko cancel:"
 close_wine_gecko_init_windows
