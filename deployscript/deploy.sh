@@ -51,9 +51,9 @@ close_wine_mono_init_windows() {
 	done
 	printscreen
 	echo "Sending installer keystrokes..."
-	xdotool key --delay 1000 Tab
+	xdotool key --window $WID --delay 1000 Tab
 	sleep 1
-	xdotool key --delay 1000 space
+	xdotool key --window $WID --delay 1000 space
 	sleep 2
 }
 
@@ -63,9 +63,9 @@ close_wine_gecko_init_windows() {
 	done
 	printscreen
 	echo "Sending installer keystrokes..."
-	xdotool key --delay 1000 Tab
+	xdotool key --window $WID --delay 1000 Tab
 	sleep 1
-	xdotool key --delay 1000 space
+	xdotool key --window $WID --delay 1000 space
 	sleep 2
 }
 
