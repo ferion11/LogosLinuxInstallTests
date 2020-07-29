@@ -1,7 +1,6 @@
 #!/bin/bash
 # user mod with sudo acess: $HOME is /home/travis
 export SCRIPT_INSTALL_URL="https://github.com/ferion11/LogosLinuxInstaller/releases/download/v2.0/install_AppImageWine_and_Logos.sh"
-export DOWNLOADED_RESOURCES="${HOME}/resources"
 export INSTALLDIR="${HOME}/LogosBible_Linux_P_${LOGOS_INSTALLATION_TYPE}"
 
 echo "======= DEBUG: Starting ======="
@@ -109,6 +108,20 @@ close_question_yes_windows() {
 	done
 	printscreen
 	echo "* Sending installer keystrokes..."
+	xdotool key --delay 1000 space
+	sleep 2
+}
+
+close_question_no_windows() {
+	while ! WID=$(xdotool search --name "Question:*"); do
+		sleep 3
+	done
+	printscreen
+	echo "* Sending installer keystrokes..."
+	xdotool key --delay 1000 Tab
+	sleep 1
+	xdotool key --delay 1000 Tab
+	sleep 1
 	xdotool key --delay 1000 space
 	sleep 2
 }
@@ -273,7 +286,7 @@ logos_install_window
 
 
 echo "* Question: clean temp files"
-close_question_yes_windows
+close_question_no_windows
 
 
 echo "* Question: run Logos.sh"
