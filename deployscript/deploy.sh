@@ -1,4 +1,8 @@
 #!/bin/bash
+#!/bin/bash
+# user mod with sudo acess: $HOME is /home/travis
+# travis use DISPLAY=:99.0 to xvfb
+export DISPLAY=:99.0
 export SCRIPT_INSTALL_URL="https://github.com/ferion11/LogosLinuxInstaller/releases/download/v2.0/install_AppImageWine_and_Logos.sh"
 
 #=========================
@@ -6,20 +10,10 @@ die() { echo >&2 "$*"; exit 1; };
 
 PRINT_NUM=1
 printscreen() {
-	xwd -display :77 -root -silent | convert xwd:- png:./screenshot_${PRINT_NUM}.png
+	xwd -display :99 -root -silent | convert xwd:- png:./screenshot_${PRINT_NUM}.png
 	PRINT_NUM=$((PRINT_NUM+1))
 }
 #=========================
-
-#add-apt-repository ppa:pasgui/ppa -y
-#add-apt-repository ppa:codeblocks-devs/release -y
-
-#-----------------------------
-dpkg --add-architecture i386
-apt update
-#apt install -y aptitude wget file bzip2 gcc-multilib
-apt install -y aptitude wget file git tar gzip bzip2 grep sed procps libjpeg-turbo8 mpg123 wine xvfb xdotool imagemagick x11-apps zenity
-#===========================================================================================
 
 close_question_1_yes_windows() {
 	while ! WID=$(xdotool search --name "Question: Install Logos Bible"); do
@@ -128,18 +122,9 @@ finish_the_script_at_end() {
 }
 
 #===========================================================================================
-
+echo "======= DEBUG: Starting ======="
 wget -c "${SCRIPT_INSTALL_URL}"
 chmod +x ./install_AppImageWine_and_Logos.sh
-
-echo "======= DEBUG: Starting xvfb ======="
-Xvfb :77 -screen 0 1024x768x24 &
-Xvfb_PID=$!
-sleep 7
-echo "* exporting the DISPLAY:"
-export DISPLAY=:77
-sleep 7
-#--------
 
 echo "* Starting install_AppImageWine_and_Logos.sh"
 ./install_AppImageWine_and_Logos.sh &
@@ -205,10 +190,6 @@ close_question_yes_windows
 echo "... waiting 60s to Logos start:"
 sleep 30
 printscreen
-
-
-# kill Xvfb whenever you feel like it
-kill -15 "${Xvfb_PID}"
 #---------------
 
 tar cvzf screenshots.tar.gz ./screenshot*

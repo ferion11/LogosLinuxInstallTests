@@ -1,3 +1,15 @@
+dist: bionic
+addons:
+  apt:
+    packages:
+    - mpg123
+    - xdotool
+    - x11-apps
+    - zenity
+
+services:
+  - xvfb
+
 sudo: required
 
 language: cpp
@@ -7,17 +19,23 @@ env:
     - RELEASE_BRANCH="master"
 
 before_install:
-  # Wine WoW64 for native install:
-  - wget -nv -c https://github.com/Kron4ek/Wine-Builds/releases/download/5.11/wine-5.11-staging-amd64.tar.xz
+  # add deps for wine:
+  - sudo add-apt-repository -y ppa:cybermax-dexter/sdl2-backport
+
+  # updating wine https://wiki.winehq.org/Ubuntu:
+  - wget -O - https://dl.winehq.org/wine-builds/winehq.key | sudo apt-key add -
+  - sudo add-apt-repository 'deb https://dl.winehq.org/wine-builds/ubuntu/ bionic main'
+  - sudo apt update
+  - sudo apt install -y --install-recommends winehq-staging
+
+  #making result dir
   - mkdir result
 
 script:
-  # ubuntu xenial
-  - sudo bash deployscript/deploy.sh
+  #- sudo bash deployscript/deploy.sh
+  - bash deployscript/deploy.sh
 
 after_success:
-  # ubuntu xenial
-
   # md5sum tool
   - wget -c https://github.com/ferion11/libsutil/releases/download/md5sum_util_v0.1/md5sum_util.sh
   - bash md5sum_util.sh result
