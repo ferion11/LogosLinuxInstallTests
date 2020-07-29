@@ -1,5 +1,5 @@
 #!/bin/bash
-export SCRIPT_INSTALL_URL="https://github.com/ferion11/LogosLinuxInstaller/releases/download/v2.0-rc2/install_AppImageWine_and_Logos.sh"
+export SCRIPT_INSTALL_URL="https://github.com/ferion11/LogosLinuxInstaller/releases/download/v2.0/install_AppImageWine_and_Logos.sh"
 
 #=========================
 die() { echo >&2 "$*"; exit 1; };
