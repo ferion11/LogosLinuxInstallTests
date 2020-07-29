@@ -3,12 +3,10 @@ addons:
   apt:
     packages:
     - mpg123
+    - xvfb
     - xdotool
     - x11-apps
     - zenity
-
-services:
-  - xvfb
 
 sudo: required
 
@@ -17,6 +15,10 @@ language: cpp
 env:
   global:
     - RELEASE_BRANCH="master"
+  jobs:
+    - LOGOS_INSTALLATION_TYPE=1
+    - LOGOS_INSTALLATION_TYPE=2
+    - LOGOS_INSTALLATION_TYPE=3
 
 before_install:
   # add deps for wine:
@@ -28,7 +30,13 @@ before_install:
   - sudo apt update
   - sudo apt install -y --install-recommends winehq-staging
 
-  #making result dir
+  # doing it before install trying to avoid run in parallel
+  - mkdir resources
+  - wget https://github.com/ferion11/Wine_Appimage/releases/download/continuous/wine-i386_x86_64-archlinux.AppImage -P resources
+  - wget https://downloads.logoscdn.com/LBS8/Installer/8.15.0.0004/Logos-x86.msi -P resources
+  - wget https://downloads.logoscdn.com/LBS8/Installer/8.15.0.0004/Logos-x64.msi -P resources
+
+before_script:
   - mkdir result
 
 script:

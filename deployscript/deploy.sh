@@ -1,26 +1,100 @@
 #!/bin/bash
-#!/bin/bash
 # user mod with sudo acess: $HOME is /home/travis
-# travis use DISPLAY=:99.0 to xvfb
-export DISPLAY=:99.0
 export SCRIPT_INSTALL_URL="https://github.com/ferion11/LogosLinuxInstaller/releases/download/v2.0/install_AppImageWine_and_Logos.sh"
+export DOWNLOADED_RESOURCES="${HOME}/resources"
+export INSTALLDIR="${HOME}/LogosBible_Linux_P_${LOGOS_INSTALLATION_TYPE}"
+
+echo "======= DEBUG: Starting ======="
+case "${LOGOS_INSTALLATION_TYPE}" in
+	1)
+		echo "******* Option 1 *******"
+		export DISPLAY=:99.0
+		;;
+	2)
+		echo "******* Option 2 *******"
+		export DISPLAY=:98.0
+		;;
+	3)
+		echo "******* Option 3 *******"
+		export DISPLAY=:97.0
+		;;
+	*)
+		echo "!!! no valid option !!!"
+		exit 1
+esac
+
+echo "======= DEBUG: Starting xvfb ======="
+Xvfb $DISPLAY -screen 0 1024x768x24 &
+Xvfb_PID=$!
+sleep 7
+echo "* Using DISPLAY: $DISPLAY"
 
 #=========================
 die() { echo >&2 "$*"; exit 1; };
 
 PRINT_NUM=1
 printscreen() {
-	xwd -display :99 -root -silent | convert xwd:- png:./screenshot_${PRINT_NUM}.png
+	xwd -display $DISPLAY -root -silent | convert xwd:- png:./"screenshots_${LOGOS_INSTALLATION_TYPE}"/img_${PRINT_NUM}.png
 	PRINT_NUM=$((PRINT_NUM+1))
 }
 #=========================
 
-close_question_1_yes_windows() {
+close_question_1_yes_1_windows() {
 	while ! WID=$(xdotool search --name "Question: Install Logos Bible"); do
 		sleep 3
 	done
 	printscreen
 	echo "* Sending installer keystrokes..."
+	xdotool key --delay 1000 Tab
+	sleep 1
+	xdotool key --delay 1000 Tab
+	sleep 1
+	xdotool key --delay 1000 space
+	sleep 2
+}
+
+close_question_1_yes_2_windows() {
+	while ! WID=$(xdotool search --name "Question: Install Logos Bible"); do
+		sleep 3
+	done
+	printscreen
+	echo "* Sending installer keystrokes..."
+	xdotool key --delay 1000 Tab
+	sleep 1
+	xdotool key --delay 1000 Tab
+	sleep 1
+	xdotool key --delay 1000 Tab
+	sleep 1
+	xdotool key --delay 1000 Down
+	sleep 1
+	xdotool key --delay 1000 space
+	sleep 1
+	xdotool key --delay 1000 Tab
+	sleep 1
+	xdotool key --delay 1000 Tab
+	sleep 1
+	xdotool key --delay 1000 space
+	sleep 2
+}
+
+close_question_1_yes_3_windows() {
+	while ! WID=$(xdotool search --name "Question: Install Logos Bible"); do
+		sleep 3
+	done
+	printscreen
+	echo "* Sending installer keystrokes..."
+	xdotool key --delay 1000 Tab
+	sleep 1
+	xdotool key --delay 1000 Tab
+	sleep 1
+	xdotool key --delay 1000 Tab
+	sleep 1
+	xdotool key --delay 1000 Down
+	sleep 1
+	xdotool key --delay 1000 Down
+	sleep 1
+	xdotool key --delay 1000 space
+	sleep 1
 	xdotool key --delay 1000 Tab
 	sleep 1
 	xdotool key --delay 1000 Tab
@@ -122,8 +196,9 @@ finish_the_script_at_end() {
 }
 
 #===========================================================================================
-echo "======= DEBUG: Starting ======="
-wget -c "${SCRIPT_INSTALL_URL}"
+mkdir "screenshots_${LOGOS_INSTALLATION_TYPE}"
+
+wget "${SCRIPT_INSTALL_URL}"
 chmod +x ./install_AppImageWine_and_Logos.sh
 
 echo "* Starting install_AppImageWine_and_Logos.sh"
@@ -131,9 +206,23 @@ echo "* Starting install_AppImageWine_and_Logos.sh"
 #--------
 
 # Starting Steps here:
-
-echo "* Question: using the AppImage installation (first option):"
-close_question_1_yes_windows
+case "${LOGOS_INSTALLATION_TYPE}" in
+	1)
+		echo "* Question: using the AppImage installation (option 1):"
+		close_question_1_yes_1_windows
+		;;
+	2)
+		echo "* Question: using the AppImage installation (option 2):"
+		close_question_1_yes_2_windows
+		;;
+	3)
+		echo "* Question: using the AppImage installation (option 3):"
+		close_question_1_yes_3_windows
+		;;
+	*)
+		echo "!!! no valid option !!!"
+		exit 1
+esac
 
 echo "* Downloading AppImage:"
 wait_window_and_print "Downloading *"
@@ -150,7 +239,10 @@ echo "* wine mono cancel:"
 close_wine_mono_init_windows
 echo "* wine gecko cancel:"
 close_wine_gecko_init_windows
-
+if [ "${LOGOS_INSTALLATION_TYPE}" = "3" ]; then
+	echo "* wine gecko cancel (part2):"
+	close_wine_gecko_init_windows
+fi
 
 echo "* Question: winetricks:"
 close_question_yes_windows
@@ -192,6 +284,11 @@ sleep 30
 printscreen
 #---------------
 
-tar cvzf screenshots.tar.gz ./screenshot*
+# kill Xvfb whenever you feel like it
+echo "* Stopping the Xvfb ..."
+kill -15 "${Xvfb_PID}"
+#---------------
 
-mv screenshots.tar.gz result/
+tar cvzf "screenshots_${LOGOS_INSTALLATION_TYPE}".tar.gz "screenshots_${LOGOS_INSTALLATION_TYPE}"
+
+mv "screenshots_${LOGOS_INSTALLATION_TYPE}".tar.gz result/
