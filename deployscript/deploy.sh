@@ -72,6 +72,7 @@ close_question_1_yes_2_windows() {
 	sleep 1
 	xdotool key --delay 1000 Tab
 	sleep 1
+	printscreen
 	xdotool key --delay 1000 space
 	sleep 2
 }
@@ -98,6 +99,7 @@ close_question_1_yes_3_windows() {
 	sleep 1
 	xdotool key --delay 1000 Tab
 	sleep 1
+	printscreen
 	xdotool key --delay 1000 space
 	sleep 2
 }
@@ -156,8 +158,8 @@ wait_window_and_print(){
 #		sleep 3
 #	done
 #	echo "... found! And print:"
-	echo "... not waiting, but print after 3s"
-	sleep 3
+	echo "... not waiting, but print after 2s"
+	sleep 2
 	printscreen
 }
 
