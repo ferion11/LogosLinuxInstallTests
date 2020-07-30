@@ -153,13 +153,11 @@ close_wine_gecko_init_windows() {
 }
 
 wait_window_and_print(){
-#	while ! WID=$(xdotool search --name "$@"); do
-#		echo "... still waiting ..."
-#		sleep 3
-#	done
-#	echo "... found! And print:"
-	echo "... not waiting, but print after 2s"
-	sleep 2
+	while ! WID=$(xdotool search --name "$@"); do
+		echo "... still waiting ..."
+		sleep 3
+	done
+	echo "... found! And print:"
 	printscreen
 }
 
@@ -242,7 +240,8 @@ case "${LOGOS_INSTALLATION_TYPE}" in
 esac
 
 echo "* Downloading AppImage:"
-wait_window_and_print "Downloading *"
+sleep 1
+printscreen
 sleep 7
 
 
@@ -282,7 +281,8 @@ echo "* Question: download and install Logos"
 close_question_yes_windows
 
 echo "* Downloading Logos:"
-wait_window_and_print "Downloading *"
+sleep 1
+printscreen
 sleep 7
 
 echo "* Logos install window:"
