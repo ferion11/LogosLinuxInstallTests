@@ -154,8 +154,8 @@ close_wine_gecko_init_windows() {
 
 wait_window_and_print(){
 	while ! WID=$(xdotool search --name "$@"); do
-		echo "... still waiting ..."
-		sleep 3
+		echo "... still waiting 1s ..."
+		sleep 1
 	done
 	echo "... found! And print:"
 	printscreen
