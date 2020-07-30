@@ -1,6 +1,6 @@
 #!/bin/bash
 # user mod with sudo acess: $HOME is /home/travis
-export SCRIPT_INSTALL_URL="https://github.com/ferion11/LogosLinuxInstaller/releases/download/v2.0/install_AppImageWine_and_Logos.sh"
+export SCRIPT_INSTALL_URL="https://github.com/ferion11/LogosLinuxInstaller/releases/download/v2.1/install_AppImageWine_and_Logos.sh"
 export INSTALLDIR="${HOME}/LogosBible_Linux_P_${LOGOS_INSTALLATION_TYPE}"
 
 echo "======= DEBUG: Starting ======="
