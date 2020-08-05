@@ -1,6 +1,6 @@
 #!/bin/bash
 # user mod with sudo acess: $HOME is /home/travis
-export SCRIPT_INSTALL_URL="https://github.com/ferion11/LogosLinuxInstaller/releases/download/v2.2/install_AppImageWine_and_Logos.sh"
+export SCRIPT_INSTALL_URL="https://github.com/ferion11/LogosLinuxInstaller/releases/download/v2.3/install_AppImageWine_and_Logos.sh"
 export INSTALLDIR="${HOME}/LogosBible_Linux_P_${LOGOS_INSTALLATION_TYPE}"
 
 echo "======= DEBUG: Starting ======="
@@ -292,6 +292,9 @@ logos_install_window
 echo "* Question: clean temp files"
 close_question_no_windows
 
+echo "* ls -la on INSTALLDIR/data/bin and INSTALLDIR/data"
+ls -la "${INSTALLDIR}/data/bin"
+ls -la "${INSTALLDIR}/data"
 
 echo "* Question: run Logos.sh"
 close_question_yes_windows
