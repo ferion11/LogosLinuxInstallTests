@@ -260,6 +260,10 @@ if [ "${LOGOS_INSTALLATION_TYPE}" = "3" ]; then
 	close_wine_gecko_init_windows
 fi
 
+echo "* ls -la on INSTALLDIR/data/bin and INSTALLDIR/data"
+ls -la "${INSTALLDIR}/data/bin"
+ls -la "${INSTALLDIR}/data"
+
 echo "* Question: winetricks:"
 close_question_yes_windows
 
@@ -291,10 +295,6 @@ logos_install_window
 
 echo "* Question: clean temp files"
 close_question_no_windows
-
-echo "* ls -la on INSTALLDIR/data/bin and INSTALLDIR/data"
-ls -la "${INSTALLDIR}/data/bin"
-ls -la "${INSTALLDIR}/data"
 
 echo "* Question: run Logos.sh"
 close_question_yes_windows
