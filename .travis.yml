@@ -9,8 +9,8 @@ env:
     - RELEASE_BRANCH="master"
   jobs:
     - LOGOS_INSTALLATION_TYPE=1
-    - LOGOS_INSTALLATION_TYPE=2
-    - LOGOS_INSTALLATION_TYPE=3
+#    - LOGOS_INSTALLATION_TYPE=2
+#    - LOGOS_INSTALLATION_TYPE=3
 
 script:
   - bash deployscript/before_deploy.sh

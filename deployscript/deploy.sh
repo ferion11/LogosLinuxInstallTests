@@ -204,8 +204,8 @@ finish_the_script_at_end() {
 	printscreen
 
 	kill -15 "${Xvfb_PID}"
-	tar cvzf screenshots.tar.gz ./screenshot*
-	mv screenshots.tar.gz result/
+	tar cvzf "screenshots_${LOGOS_INSTALLATION_TYPE}".tar.gz "screenshots_${LOGOS_INSTALLATION_TYPE}"
+	mv "screenshots_${LOGOS_INSTALLATION_TYPE}".tar.gz result/
 
 	exit 0
 }
@@ -292,6 +292,8 @@ sleep 7
 echo "* Logos install window:"
 logos_install_window
 
+# DEBUG:
+finish_the_script_at_end
 
 echo "* Question: clean temp files"
 close_question_no_windows
