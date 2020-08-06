@@ -2,16 +2,37 @@
 #=========================
 die() { echo >&2 "$*"; exit 1; };
 #=========================
+export CHROOT_DISTRO="bionic"
+export CHROOT_MIRROR="http://archive.ubuntu.com/ubuntu/"
+
+# Ubuntu Main Repos:
+echo "deb ${CHROOT_MIRROR} ${CHROOT_DISTRO} main restricted universe multiverse" > /etc/apt/sources.list
+echo "deb-src ${CHROOT_MIRROR} ${CHROOT_DISTRO} main restricted universe multiverse" >> /etc/apt/sources.list
+
+###### Ubuntu Update Repos:
+echo "deb ${CHROOT_MIRROR} ${CHROOT_DISTRO}-security main restricted universe multiverse" >> /etc/apt/sources.list
+echo "deb ${CHROOT_MIRROR} ${CHROOT_DISTRO}-updates main restricted universe multiverse" >> /etc/apt/sources.list
+echo "deb ${CHROOT_MIRROR} ${CHROOT_DISTRO}-proposed main restricted universe multiverse" >> /etc/apt/sources.list
+echo "deb ${CHROOT_MIRROR} ${CHROOT_DISTRO}-backports main restricted universe multiverse" >> /etc/apt/sources.list
+echo "deb-src ${CHROOT_MIRROR} ${CHROOT_DISTRO}-security main restricted universe multiverse" >> /etc/apt/sources.list
+echo "deb-src ${CHROOT_MIRROR} ${CHROOT_DISTRO}-updates main restricted universe multiverse" >> /etc/apt/sources.list
+echo "deb-src ${CHROOT_MIRROR} ${CHROOT_DISTRO}-proposed main restricted universe multiverse" >> /etc/apt/sources.list
+echo "deb-src ${CHROOT_MIRROR} ${CHROOT_DISTRO}-backports main restricted universe multiverse" >> /etc/apt/sources.list
+
+apt-get -q -y update >/dev/null
+echo "* Install software-properties-common..."
+apt-get -q -y install software-properties-common apt-utils wget git sudo tar gzip xz-utils bzip2 gawk sed >/dev/null || die "* apt software-properties-common and apt-utils erro!"
+#-------------------------------------------------
 
 # add deps for wine:
-sudo add-apt-repository -y ppa:cybermax-dexter/sdl2-backport || die "* add-apt-repository fail!"
+add-apt-repository -y ppa:cybermax-dexter/sdl2-backport || die "* add-apt-repository fail!"
 
 # updating wine https://wiki.winehq.org/Ubuntu:
 wget -O - https://dl.winehq.org/wine-builds/winehq.key | sudo apt-key add -
-sudo add-apt-repository 'deb https://dl.winehq.org/wine-builds/ubuntu/ bionic main'
-sudo apt update
-sudo apt install -y --install-recommends mpg123 xvfb xdotool x11-apps zenity winehq-staging winbind cabextract || die "* main apt fail!"
-sudo apt install -y --allow-downgrades --install-recommends winehq-staging=5.11~bionic wine-staging=5.11~bionic wine-staging-amd64=5.11~bionic wine-staging-i386=5.11~bionic || die "* downgrade apt fail!"
+add-apt-repository 'deb https://dl.winehq.org/wine-builds/ubuntu/ ${CHROOT_DISTRO} main'
+apt-get -q -y update >/dev/null
+apt install -y --install-recommends mpg123 xvfb xdotool x11-apps zenity winehq-staging winbind cabextract || die "* main apt fail!"
+apt install -y --allow-downgrades --install-recommends winehq-staging=5.11~bionic wine-staging=5.11~bionic wine-staging-amd64=5.11~bionic wine-staging-i386=5.11~bionic || die "* downgrade apt fail!"
 
 #==============================================================================
 #==============================================================================
