@@ -1,26 +1,24 @@
 #!/bin/bash
-# user mod with sudo acess: $HOME is /home/travis
-export SCRIPT_INSTALL_URL="https://github.com/ferion11/LogosLinuxInstaller/releases/download/v2.3/install_AppImageWine_and_Logos.sh"
-export INSTALLDIR="${HOME}/LogosBible_Linux_P_${LOGOS_INSTALLATION_TYPE}"
+#=========================
+die() { echo >&2 "$*"; exit 1; };
+#=========================
 
-echo "======= DEBUG: Starting ======="
-case "${LOGOS_INSTALLATION_TYPE}" in
-	1)
-		echo "******* Option 1 *******"
-		export DISPLAY=:99.0
-		;;
-	2)
-		echo "******* Option 2 *******"
-		export DISPLAY=:98.0
-		;;
-	3)
-		echo "******* Option 3 *******"
-		export DISPLAY=:97.0
-		;;
-	*)
-		echo "!!! no valid option !!!"
-		exit 1
-esac
+# add deps for wine:
+sudo add-apt-repository -y ppa:cybermax-dexter/sdl2-backport || die "* add-apt-repository fail!"
+
+# updating wine https://wiki.winehq.org/Ubuntu:
+wget -O - https://dl.winehq.org/wine-builds/winehq.key | sudo apt-key add -
+sudo add-apt-repository 'deb https://dl.winehq.org/wine-builds/ubuntu/ bionic main'
+sudo apt update
+sudo apt install -y --install-recommends mpg123 xvfb xdotool x11-apps zenity winehq-staging winbind cabextract || die "* main apt fail!"
+sudo apt install -y --allow-downgrades --install-recommends winehq-staging=5.11~bionic wine-staging=5.11~bionic wine-staging-amd64=5.11~bionic wine-staging-i386=5.11~bionic || die "* downgrade apt fail!"
+
+#==============================================================================
+#==============================================================================
+
+export INSTALLDIR="${HOME}/LogosBible_Linux_P_3"
+echo "******* Option 3 *******"
+export DISPLAY=:97.0
 
 echo "======= DEBUG: Starting xvfb ======="
 Xvfb $DISPLAY -screen 0 1024x768x24 &
@@ -29,11 +27,9 @@ sleep 7
 echo "* Using DISPLAY: $DISPLAY"
 
 #=========================
-die() { echo >&2 "$*"; exit 1; };
-
 PRINT_NUM=1
 printscreen() {
-	xwd -display $DISPLAY -root -silent | convert xwd:- png:./"screenshots_${LOGOS_INSTALLATION_TYPE}"/img_${PRINT_NUM}.png
+	xwd -display $DISPLAY -root -silent | convert xwd:- png:./screenshots_3/img_${PRINT_NUM}.png
 	PRINT_NUM=$((PRINT_NUM+1))
 }
 #=========================
@@ -204,16 +200,15 @@ finish_the_script_at_end() {
 	printscreen
 
 	kill -15 "${Xvfb_PID}"
-	tar cvzf "screenshots_${LOGOS_INSTALLATION_TYPE}".tar.gz "screenshots_${LOGOS_INSTALLATION_TYPE}"
-	mv "screenshots_${LOGOS_INSTALLATION_TYPE}".tar.gz result/
+	tar cvzf screenshots_3.tar.gz screenshots_3
+	mv screenshots_3.tar.gz result/
 
 	exit 0
 }
 
 #===========================================================================================
-mkdir "screenshots_${LOGOS_INSTALLATION_TYPE}"
+mkdir screenshots_3
 
-wget "${SCRIPT_INSTALL_URL}"
 chmod +x ./install_AppImageWine_and_Logos.sh
 
 echo "* Starting install_AppImageWine_and_Logos.sh"
@@ -221,28 +216,8 @@ echo "* Starting install_AppImageWine_and_Logos.sh"
 #--------
 
 # Starting Steps here:
-case "${LOGOS_INSTALLATION_TYPE}" in
-	1)
-		echo "* Question: using the AppImage installation (option 1):"
-		close_question_1_yes_1_windows
-		;;
-	2)
-		echo "* Question: using the AppImage installation (option 2):"
-		close_question_1_yes_2_windows
-		;;
-	3)
-		echo "* Question: using the AppImage installation (option 3):"
-		close_question_1_yes_3_windows
-		;;
-	*)
-		echo "!!! no valid option !!!"
-		exit 1
-esac
-
-echo "* Downloading AppImage:"
-sleep 1
-printscreen
-sleep 7
+echo "* Question: using the AppImage installation (option 3):"
+close_question_1_yes_3_windows
 
 
 echo "* Question: wine bottle:"
@@ -250,19 +225,18 @@ close_question_yes_windows
 
 
 echo "* Waiting to initialize wine..."
-# 2 times, one for 32bit and another for 64bit (maybe 2)
+# need another gecko step for 64bit
 echo "* wine mono cancel:"
 close_wine_mono_init_windows
 echo "* wine gecko cancel:"
 close_wine_gecko_init_windows
-if [ "${LOGOS_INSTALLATION_TYPE}" = "3" ]; then
-	echo "* wine gecko cancel (part2):"
-	close_wine_gecko_init_windows
-fi
+echo "* wine gecko cancel (part2):"
+close_wine_gecko_init_windows
 
 echo "* ls -la on INSTALLDIR/data/bin and INSTALLDIR/data"
 ls -la "${INSTALLDIR}/data/bin"
 ls -la "${INSTALLDIR}/data"
+
 
 echo "* Question: winetricks:"
 close_question_yes_windows
@@ -292,16 +266,14 @@ sleep 7
 echo "* Logos install window:"
 logos_install_window
 
-# DEBUG:
-finish_the_script_at_end
 
 echo "* Question: clean temp files"
-close_question_no_windows
+close_question_yes_windows
 
 echo "* Question: run Logos.sh"
 close_question_yes_windows
 
-echo "... waiting 60s to Logos start:"
+echo "... waiting 30s to Logos start:"
 sleep 30
 printscreen
 #---------------
@@ -311,6 +283,9 @@ echo "* Stopping the Xvfb ..."
 kill -15 "${Xvfb_PID}"
 #---------------
 
-tar cvzf "screenshots_${LOGOS_INSTALLATION_TYPE}".tar.gz "screenshots_${LOGOS_INSTALLATION_TYPE}"
+tar cvzf screenshots_3.tar.gz screenshots_3
+#-------------------------------------------------
 
-mv "screenshots_${LOGOS_INSTALLATION_TYPE}".tar.gz result/
+echo "Packing tar result3 file..."
+tar cvf result3.tar screenshots_3.tar.gz
+echo "* result3.tar size: $(du -hs result3.tar)"
