@@ -29,7 +29,7 @@ add-apt-repository -y ppa:cybermax-dexter/sdl2-backport || die "* add-apt-reposi
 
 # updating wine https://wiki.winehq.org/Ubuntu:
 wget -O - https://dl.winehq.org/wine-builds/winehq.key | sudo apt-key add -
-add-apt-repository 'deb https://dl.winehq.org/wine-builds/ubuntu/ ${CHROOT_DISTRO} main'
+add-apt-repository "deb https://dl.winehq.org/wine-builds/ubuntu/ ${CHROOT_DISTRO} main"
 apt-get -q -y update >/dev/null
 apt install -y --install-recommends imagemagick mpg123 xvfb xdotool x11-apps zenity winehq-staging winbind cabextract || die "* main apt fail!"
 apt install -y --allow-downgrades --install-recommends winehq-staging=5.11~bionic wine-staging=5.11~bionic wine-staging-amd64=5.11~bionic wine-staging-i386=5.11~bionic || die "* downgrade apt fail!"
