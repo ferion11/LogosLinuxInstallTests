@@ -17,7 +17,7 @@ install:
 script:
   - docker build . -f deploydocker/Dockerfile.deploy.linux"$INSTALLATIONN" -t logos-linux."$INSTALLATIONN"
   - mkdir result
-  - docker run --rm -v $(pwd)/result:/tmp/result -ti logos-linux."$INSTALLATIONN" cp result"$INSTALLATIONN".tar /tmp/result
+  - docker run --rm --device /dev/fuse --privileged -v $(pwd)/result:/tmp/result -ti logos-linux."$INSTALLATIONN" cp result"$INSTALLATIONN".tar /tmp/result
 
 after_success:
   # extract result
