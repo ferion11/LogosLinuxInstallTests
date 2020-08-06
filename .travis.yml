@@ -17,13 +17,12 @@ install:
 script:
   - docker build . -f deploydocker/Dockerfile.deploy.linux$INSTALLATIONN -t logos-linux.$INSTALLATIONN
   - mkdir result
-  - docker run --rm -v "$(pwd)/result:/tmp/result" -ti logos-linux.$INSTALLATIONN cp result$INSTALLATIONN.tar /tmp/result
+  - docker run --rm -v $(pwd)/result:/tmp/result -ti logos-linux.$INSTALLATIONN cp result$INSTALLATIONN.tar /tmp/result
 
 after_success:
   # extract result
   - tar xvf result/result$INSTALLATIONN.tar -C apps
   - rm -rf result/result$INSTALLATIONN.tar
-=======================
 
   # md5sum tool
   - wget -c https://github.com/ferion11/libsutil/releases/download/md5sum_util_v0.1/md5sum_util.sh
