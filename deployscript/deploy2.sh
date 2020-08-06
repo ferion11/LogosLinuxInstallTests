@@ -22,6 +22,7 @@ echo "deb-src ${CHROOT_MIRROR} ${CHROOT_DISTRO}-backports main restricted univer
 apt-get -q -y update >/dev/null
 echo "* Install software-properties-common..."
 apt-get -q -y install software-properties-common apt-utils wget git sudo tar gzip xz-utils bzip2 gawk sed >/dev/null || die "* apt software-properties-common and apt-utils erro!"
+dpkg --add-architecture i386
 #-------------------------------------------------
 
 # add deps for wine:
