@@ -21,8 +21,7 @@ echo "deb-src ${CHROOT_MIRROR} ${CHROOT_DISTRO}-backports main restricted univer
 
 apt-get -q -y update >/dev/null
 echo "* Install software-properties-common..."
-apt-get -q -y install software-properties-common apt-utils wget git sudo tar gzip xz-utils bzip2 gawk sed fuse kmod >/dev/null || die "* apt software-properties-common and apt-utils erro!"
-modprobe fuse || die "* cant load fuse module"
+apt-get -q -y install software-properties-common apt-utils wget git sudo tar gzip xz-utils bzip2 gawk sed fuse >/dev/null || die "* apt software-properties-common and apt-utils erro!"
 #-------------------------------------------------
 
 echo "* Testing appimage here: "

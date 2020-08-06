@@ -7,9 +7,9 @@ env:
   global:
     - RELEASE_BRANCH="master"
   jobs:
-    - INSTALLATIONN=1
-#    - INSTALLATIONN=2
-#    - INSTALLATIONN=3
+#    - INSTALLATIONN=1
+    - INSTALLATIONN=2
+    - INSTALLATIONN=3
 
 install:
   - wget "https://github.com/ferion11/LogosLinuxInstaller/releases/download/v2.3/install_AppImageWine_and_Logos.sh"
@@ -17,7 +17,7 @@ install:
 script:
   - docker build . -f deploydocker/Dockerfile.deploy.linux"$INSTALLATIONN" -t logos-linux."$INSTALLATIONN"
   - mkdir result
-  - docker run --rm --device /dev/fuse --cap-add SYS_ADMIN --security-opt apparmor:unconfined --privileged -v $(pwd)/result:/tmp/result -ti logos-linux."$INSTALLATIONN" cp result"$INSTALLATIONN".tar /tmp/result
+  - docker run --rm -v $(pwd)/result:/tmp/result -ti logos-linux."$INSTALLATIONN" cp result"$INSTALLATIONN".tar /tmp/result
 
 after_success:
   # extract result
