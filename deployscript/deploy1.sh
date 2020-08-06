@@ -24,7 +24,7 @@ echo "* Install software-properties-common..."
 apt-get -q -y install software-properties-common apt-utils wget git sudo tar gzip xz-utils bzip2 gawk sed >/dev/null || die "* apt software-properties-common and apt-utils erro!"
 #-------------------------------------------------
 
-apt install -y --install-recommends mpg123 xvfb xdotool x11-apps zenity winehq-staging winbind cabextract || die "* main apt fail!"
+apt install -y --install-recommends mpg123 xvfb xdotool x11-apps zenity winbind cabextract || die "* main apt fail!"
 
 #==============================================================================
 #==============================================================================
