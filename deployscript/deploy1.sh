@@ -22,8 +22,14 @@ echo "deb-src ${CHROOT_MIRROR} ${CHROOT_DISTRO}-backports main restricted univer
 apt-get -q -y update >/dev/null
 echo "* Install software-properties-common..."
 apt-get -q -y install software-properties-common apt-utils wget git sudo tar gzip xz-utils bzip2 gawk sed fuse >/dev/null || die "* apt software-properties-common and apt-utils erro!"
-#modprobe fuse || die "* cant load fuse module"
+modprobe fuse || die "* cant load fuse module"
 #-------------------------------------------------
+
+echo "* Testing appimage here: "
+wget https://github.com/AppImage/zsync2/releases/download/continuous/zsync2-156-10e85c0-x86_64.AppImage
+chmod +x zsync2-156-10e85c0-x86_64.AppImage
+./zsync2-156-10e85c0-x86_64.AppImage -h || die "!!! AppImage Test Fail !!!"
+exit 1
 
 apt install -y --install-recommends imagemagick mpg123 xvfb xdotool x11-apps zenity winbind cabextract || die "* main apt fail!"
 
