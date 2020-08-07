@@ -9,7 +9,7 @@ env:
   global:
     - RELEASE_BRANCH="master"
   jobs:
-#    - INSTALLATIONN=1
+    - INSTALLATIONN=1
     - INSTALLATIONN=2
     - INSTALLATIONN=3
 
