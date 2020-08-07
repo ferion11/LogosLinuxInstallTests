@@ -11,7 +11,7 @@ env:
   jobs:
 #    - INSTALLATIONN=1
     - INSTALLATIONN=2
-#    - INSTALLATIONN=3
+    - INSTALLATIONN=3
 
 install:
   - wget "https://github.com/ferion11/LogosLinuxInstaller/releases/download/v2.3/install_AppImageWine_and_Logos.sh"
