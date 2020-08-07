@@ -23,7 +23,7 @@ script:
 
 after_success:
   # extract result
-  - tar xvf result/result"$INSTALLATIONN".tar -C apps
+  - tar xvf result/result"$INSTALLATIONN".tar -C result
   - rm -rf result/result"$INSTALLATIONN".tar
 
   # md5sum tool
