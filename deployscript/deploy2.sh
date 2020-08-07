@@ -6,8 +6,8 @@ die() { echo >&2 "$*"; exit 1; };
 echo "Packing tar result2 file..."
 echo "testing and debug content of file copy" > screenshots_2.tar.gz
 tar cvf result2.tar screenshots_2.tar.gz
-mkdir -p /tmp/result
-mv result2.tar /tmp/result/
+#mkdir -p /tmp/result
+#mv result2.tar /tmp/result/
 exit 0
 
 export CHROOT_DISTRO="bionic"
