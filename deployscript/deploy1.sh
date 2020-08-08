@@ -91,6 +91,7 @@ wait_window_and_print(){
 	done
 	echo "... found! And print:"
 	printscreen
+	sleep 2
 }
 
 logos_install_window(){
@@ -197,8 +198,8 @@ wait_window_and_print "Winetricks fontsmooth"
 echo "* waiting Winetricks dotnet48"
 wait_window_and_print "Winetricks dotnet48"
 
-echo "* waiting Winetricks dotnet48 end, at least 2min to download ..."
-sleep 120
+echo "* waiting Winetricks dotnet48 end, at least 1min to download ..."
+sleep 60
 wait_for_wine_process
 
 
@@ -219,8 +220,8 @@ close_question_yes_windows
 echo "* Question: run Logos.sh"
 close_question_yes_windows
 
-echo "... waiting 30s to Logos start:"
-sleep 30
+echo "... waiting 14s to Logos start:"
+sleep 14
 printscreen
 #---------------
 
