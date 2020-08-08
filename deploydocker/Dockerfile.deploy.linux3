@@ -1,6 +1,0 @@
-FROM amd64/ubuntu:bionic
-
-COPY . /srv/ubuntu3
-
-WORKDIR /srv/ubuntu3
-RUN /srv/ubuntu3/deployscript/deploy3.sh

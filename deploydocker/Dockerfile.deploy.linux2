@@ -1,6 +1,0 @@
-FROM amd64/ubuntu:bionic
-
-COPY . /srv/ubuntu2
-
-WORKDIR /srv/ubuntu2
-RUN /srv/ubuntu2/deployscript/deploy2.sh

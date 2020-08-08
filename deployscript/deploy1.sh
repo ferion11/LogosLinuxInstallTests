@@ -2,34 +2,10 @@
 #=========================
 die() { echo >&2 "$*"; exit 1; };
 #=========================
-export CHROOT_DISTRO="bionic"
-export CHROOT_MIRROR="http://archive.ubuntu.com/ubuntu/"
 
-# Ubuntu Main Repos:
-echo "deb ${CHROOT_MIRROR} ${CHROOT_DISTRO} main restricted universe multiverse" > /etc/apt/sources.list
-echo "deb-src ${CHROOT_MIRROR} ${CHROOT_DISTRO} main restricted universe multiverse" >> /etc/apt/sources.list
-
-###### Ubuntu Update Repos:
-echo "deb ${CHROOT_MIRROR} ${CHROOT_DISTRO}-security main restricted universe multiverse" >> /etc/apt/sources.list
-echo "deb ${CHROOT_MIRROR} ${CHROOT_DISTRO}-updates main restricted universe multiverse" >> /etc/apt/sources.list
-echo "deb ${CHROOT_MIRROR} ${CHROOT_DISTRO}-proposed main restricted universe multiverse" >> /etc/apt/sources.list
-echo "deb ${CHROOT_MIRROR} ${CHROOT_DISTRO}-backports main restricted universe multiverse" >> /etc/apt/sources.list
-echo "deb-src ${CHROOT_MIRROR} ${CHROOT_DISTRO}-security main restricted universe multiverse" >> /etc/apt/sources.list
-echo "deb-src ${CHROOT_MIRROR} ${CHROOT_DISTRO}-updates main restricted universe multiverse" >> /etc/apt/sources.list
-echo "deb-src ${CHROOT_MIRROR} ${CHROOT_DISTRO}-proposed main restricted universe multiverse" >> /etc/apt/sources.list
-echo "deb-src ${CHROOT_MIRROR} ${CHROOT_DISTRO}-backports main restricted universe multiverse" >> /etc/apt/sources.list
-
-apt-get -q -y update >/dev/null
-echo "* Install software-properties-common..."
-apt-get -q -y install software-properties-common apt-utils wget git sudo tar gzip xz-utils bzip2 gawk sed fuse >/dev/null || die "* apt software-properties-common and apt-utils erro!"
-#-------------------------------------------------
-
-apt install -y --install-recommends imagemagick mpg123 xvfb xdotool x11-apps zenity winbind cabextract || die "* main apt fail!"
-
-#==============================================================================
-#==============================================================================
-
-export INSTALLDIR="${HOME}/LogosBible_Linux_P_1"
+export WORKDIR="/tmp/test_workdir_1"
+export INSTALLDIR="${HOME}/LogosBible_Linux_P_test_1"
+echo "******* Option 1 *******"
 export DISPLAY=:99.0
 
 echo "======= DEBUG: Starting xvfb ======="
