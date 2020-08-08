@@ -196,10 +196,13 @@ ls -la "${INSTALLDIR}/data/bin"
 ls -la "${INSTALLDIR}/data"
 # extract (to squashfs-root folder) and change links:
 "${INSTALLDIR}/data/wine-i386_x86_64-archlinux.AppImage --appimage-extract"
-rm -rf "${INSTALLDIR}/data/bin/wine"
-rm -rf "${INSTALLDIR}/data/bin/wineserver"
-ln -s "$(pwd)/squashfs-root/AppRun" "${INSTALLDIR}/data/bin/wine"
-ln -s "$(pwd)/squashfs-root/AppRun" "${INSTALLDIR}/data/bin/wineserver"
+APPRUNPATH="$(pwd)/squashfs-root/AppRun"
+cd "${INSTALLDIR}/data/bin/"
+rm "wine"
+rm "wineserver"
+ln -s "${APPRUNPATH}" "wine"
+ln -s "${APPRUNPATH}" "wineserver"
+cd -
 # another feedback:
 echo "* ls -la on INSTALLDIR/data/bin again for the Docker run:"
 ls -la "${INSTALLDIR}/data/bin"
