@@ -226,8 +226,7 @@ close_wine_mono_init_windows
 echo "* wine gecko cancel:"
 close_wine_gecko_init_windows
 
-echo "* ls -la on INSTALLDIR/data/bin and INSTALLDIR/data"
-ls -la "${INSTALLDIR}/data/bin"
+echo "* ls -la on INSTALLDIR/data"
 ls -la "${INSTALLDIR}/data"
 
 
@@ -243,9 +242,8 @@ wait_window_and_print "Winetricks fontsmooth"
 echo "* waiting Winetricks dotnet48"
 wait_window_and_print "Winetricks dotnet48"
 
-echo "* waiting Winetricks dotnet48 end with at least 8min"
-sleep 480
-echo "* end of the 8min waiting"
+echo "* waiting Winetricks dotnet48 end ..."
+wait_for_wine_process
 
 
 echo "* Question: download and install Logos"
@@ -254,7 +252,6 @@ close_question_yes_windows
 echo "* Downloading Logos:"
 sleep 1
 printscreen
-sleep 7
 
 echo "* Logos install window:"
 logos_install_window
