@@ -160,33 +160,15 @@ echo "* Downloading AppImage:"
 sleep 1
 printscreen
 sleep 7
-#---------------------------------
-# waiting, get feedback, then extract, then change the links for docker run:
-# waiting:
-while ! WID_EXT=$(xdotool search --name "Question:*"); do
-	sleep 2
-done
-# feedback:
-echo "* ls -la on INSTALLDIR/data/bin and INSTALLDIR/data"
-ls -la "${INSTALLDIR}/data/bin"
-ls -la "${INSTALLDIR}/data"
-# extract (to squashfs-root folder) and change links:
-"${INSTALLDIR}/data/wine-i386_x86_64-archlinux.AppImage --appimage-extract"
-APPRUNPATH="$(pwd)/squashfs-root/AppRun"
-cd "${INSTALLDIR}/data/bin/"
-rm "wine"
-rm "wineserver"
-ln -s "${APPRUNPATH}" "wine"
-ln -s "${APPRUNPATH}" "wineserver"
-cd -
-# another feedback:
-echo "* ls -la on INSTALLDIR/data/bin again for the Docker run:"
-ls -la "${INSTALLDIR}/data/bin"
-#---------------------------------
 
 
 echo "* Question: wine bottle:"
 close_question_yes_windows
+
+# feedback:
+echo "* ls -la on INSTALLDIR/data/bin and INSTALLDIR/data"
+ls -la "${INSTALLDIR}/data/bin"
+ls -la "${INSTALLDIR}/data"
 
 echo "* Waiting to initialize wine..."
 echo "* wine mono cancel:"
