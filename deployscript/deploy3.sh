@@ -33,7 +33,7 @@ close_question_1_yes_1_windows() {
 	xdotool key --delay 1000 Tab
 	sleep 1
 	xdotool key --delay 1000 space
-	sleep 2
+	sleep 1
 }
 
 close_question_1_yes_2_windows() {
@@ -58,7 +58,7 @@ close_question_1_yes_2_windows() {
 	sleep 1
 	printscreen
 	xdotool key --delay 1000 space
-	sleep 2
+	sleep 1
 }
 
 close_question_1_yes_3_windows() {
@@ -85,7 +85,7 @@ close_question_1_yes_3_windows() {
 	sleep 1
 	printscreen
 	xdotool key --delay 1000 space
-	sleep 2
+	sleep 1
 }
 
 close_question_yes_windows() {
@@ -95,7 +95,7 @@ close_question_yes_windows() {
 	printscreen
 	echo "* Sending installer keystrokes..."
 	xdotool key --delay 1000 space
-	sleep 2
+	sleep 1
 }
 
 close_question_no_windows() {
@@ -109,7 +109,7 @@ close_question_no_windows() {
 	xdotool key --delay 1000 Tab
 	sleep 1
 	xdotool key --delay 1000 space
-	sleep 2
+	sleep 1
 }
 
 close_wine_mono_init_windows() {
@@ -121,7 +121,7 @@ close_wine_mono_init_windows() {
 	xdotool key --window $WID --delay 1000 Tab
 	sleep 1
 	xdotool key --window $WID --delay 1000 space
-	sleep 2
+	sleep 1
 }
 
 close_wine_gecko_init_windows() {
@@ -133,7 +133,7 @@ close_wine_gecko_init_windows() {
 	xdotool key --window $WID --delay 1000 Tab
 	sleep 1
 	xdotool key --window $WID --delay 1000 space
-	sleep 2
+	sleep 1
 }
 
 wait_window_and_print(){
@@ -152,7 +152,7 @@ logos_install_window(){
 	printscreen
 	echo "* Sending installer keystrokes..."
 	xdotool key --delay 1000 space
-	sleep 2
+	sleep 1
 	printscreen
 	xdotool key --delay 1000 space
 	sleep 1
@@ -163,10 +163,10 @@ logos_install_window(){
 	xdotool key --delay 1000 Tab
 	sleep 1
 	xdotool key --delay 1000 space
-	sleep 2
+	sleep 1
 	printscreen
 	xdotool key --delay 1000 space
-	sleep 2
+	sleep 1
 	printscreen
 	xdotool key --delay 1000 space
 	echo "... waiting 4min for the last screen ..."
