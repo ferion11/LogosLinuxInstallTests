@@ -246,8 +246,13 @@ wait_window_and_print "Winetricks fontsmooth"
 echo "* waiting Winetricks dotnet48"
 wait_window_and_print "Winetricks dotnet48"
 
-echo "* waiting Winetricks dotnet48 end, at least 1min to download ..."
+echo "* waiting Winetricks dotnet48 end, at least 4min to download ..."
+sleep 120
+echo "... only 2min pass, more 2min to go ..."
 sleep 60
+echo "... only 3min pass, more 1min to go ..."
+sleep 60
+echo "... end of 4min, wineserver -w now:"
 wait_for_wine_process
 
 
