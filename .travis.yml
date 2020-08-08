@@ -48,6 +48,10 @@ after_success:
     fi
 
 after_failure:
+  #pack what we have:
+  - tar czf screenshots_"$INSTALLATIONN".tar.gz screenshots_"$INSTALLATIONN"
+  - mv screenshots_"$INSTALLATIONN".tar.gz result/
+
   # md5sum tool
   - wget -c https://github.com/ferion11/libsutil/releases/download/md5sum_util_v0.1/md5sum_util.sh
   - bash md5sum_util.sh result

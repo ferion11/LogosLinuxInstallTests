@@ -24,7 +24,7 @@ printscreen() {
 
 close_question_1_yes_1_windows() {
 	while ! WID=$(xdotool search --name "Question: Install Logos Bible"); do
-		sleep 3
+		sleep 2
 	done
 	printscreen
 	echo "* Sending installer keystrokes..."
@@ -38,7 +38,7 @@ close_question_1_yes_1_windows() {
 
 close_question_1_yes_2_windows() {
 	while ! WID=$(xdotool search --name "Question: Install Logos Bible"); do
-		sleep 3
+		sleep 2
 	done
 	printscreen
 	echo "* Sending installer keystrokes..."
@@ -63,7 +63,7 @@ close_question_1_yes_2_windows() {
 
 close_question_1_yes_3_windows() {
 	while ! WID=$(xdotool search --name "Question: Install Logos Bible"); do
-		sleep 3
+		sleep 2
 	done
 	printscreen
 	echo "* Sending installer keystrokes..."
@@ -90,7 +90,7 @@ close_question_1_yes_3_windows() {
 
 close_question_yes_windows() {
 	while ! WID=$(xdotool search --name "Question:*"); do
-		sleep 3
+		sleep 2
 	done
 	printscreen
 	echo "* Sending installer keystrokes..."
@@ -100,7 +100,7 @@ close_question_yes_windows() {
 
 close_question_no_windows() {
 	while ! WID=$(xdotool search --name "Question:*"); do
-		sleep 3
+		sleep 2
 	done
 	printscreen
 	echo "* Sending installer keystrokes..."
@@ -114,7 +114,7 @@ close_question_no_windows() {
 
 close_wine_mono_init_windows() {
 	while ! WID=$(xdotool search --name "Wine Mono Installer"); do
-		sleep 3
+		sleep 2
 	done
 	printscreen
 	echo "Sending installer keystrokes..."
@@ -126,7 +126,7 @@ close_wine_mono_init_windows() {
 
 close_wine_gecko_init_windows() {
 	while ! WID=$(xdotool search --name "Wine Gecko Installer"); do
-		sleep 3
+		sleep 2
 	done
 	printscreen
 	echo "Sending installer keystrokes..."
@@ -147,7 +147,7 @@ wait_window_and_print(){
 
 logos_install_window(){
 	while ! WID=$(xdotool search --name "Logos Bible Software Setup"); do
-		sleep 3
+		sleep 2
 	done
 	printscreen
 	echo "* Sending installer keystrokes..."
@@ -269,8 +269,4 @@ kill -15 "${Xvfb_PID}"
 #---------------
 
 tar cvzf screenshots_2.tar.gz screenshots_2
-#-------------------------------------------------
-
-echo "Packing tar result2 file..."
-tar cvf result2.tar screenshots_2.tar.gz
-echo "* result2.tar size: $(du -hs result2.tar)"
+mv screenshots_2.tar.gz result/
