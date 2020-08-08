@@ -142,6 +142,15 @@ finish_the_script_at_end() {
 	exit 0
 }
 
+#-------------------------------------------------
+export PATH="${INSTALLDIR}/data/bin":$PATH
+wait_for_wine_process() {
+	WINEARCH=win32 WINEPREFIX="${INSTALLDIR}/data/wine32_bottle" wineserver -w
+}
+killall_for_wine_process() {
+	WINEARCH=win32 WINEPREFIX="${INSTALLDIR}/data/wine32_bottle" wineserver -k
+}
+#-------------------------------------------------
 #===========================================================================================
 mkdir screenshots_1
 
