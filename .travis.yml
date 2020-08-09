@@ -11,9 +11,9 @@ env:
   global:
     - RELEASE_BRANCH="master"
   jobs:
-    - INSTALLATIONN=1
+#    - INSTALLATIONN=1
     - INSTALLATIONN=2
-    - INSTALLATIONN=3
+#    - INSTALLATIONN=3
 
 install:
   - bash deployscript/install.sh

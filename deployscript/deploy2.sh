@@ -182,12 +182,16 @@ logos_install_window(){
 	xdotool key --delay 1000 space
 }
 
+ffmpeg -f x11grab -video_size 1024x768 -i $DISPLAY -codec:v libx264 -r 12 result/video2.mp4 &
+FFMPEG_PID=$!
 finish_the_script_at_end() {
 	echo "------- Ending for DEBUG -------"
 	# some more info:
 	ps ux | grep wine
 	printscreen
 
+	kill -15 "${FFMPEG_PID}"
+	sleep 2
 	kill -15 "${Xvfb_PID}"
 	tar cvzf screenshots_2.tar.gz screenshots_2
 	mv screenshots_2.tar.gz result/
@@ -263,7 +267,7 @@ printscreen
 echo "* Logos install window:"
 logos_install_window
 
-
+finish_the_script_at_end
 echo "* Question: clean temp files"
 close_question_yes_windows
 
@@ -275,6 +279,7 @@ sleep 14
 printscreen
 #---------------
 
+kill -15 "${FFMPEG_PID}"
 # kill Xvfb whenever you feel like it
 echo "* Stopping the Xvfb ..."
 kill -15 "${Xvfb_PID}"
