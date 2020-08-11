@@ -182,7 +182,7 @@ logos_install_window(){
 	xdotool key --delay 1000 space
 }
 
-ffmpeg -f x11grab -video_size 1024x768 -i $DISPLAY -codec:v libx264 -r 12 result/video2.mp4 &
+ffmpeg -f x11grab -video_size 1024x768 -i $DISPLAY -codec:v libx264 -r 12 result/video2.mp4 >/dev/null &
 FFMPEG_PID=$!
 finish_the_script_at_end() {
 	echo "------- Ending for DEBUG -------"
@@ -214,6 +214,7 @@ chmod +x ./install_AppImageWine_and_Logos.sh
 
 echo "* Starting install_AppImageWine_and_Logos.sh"
 ./install_AppImageWine_and_Logos.sh &
+INSTALL_SCRIPT_PID=${!}
 #--------
 
 # Starting Steps here:
