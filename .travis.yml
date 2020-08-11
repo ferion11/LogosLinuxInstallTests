@@ -44,6 +44,12 @@ after_success:
       bash upload.sh result/*
     fi
 
+after_failure:
+  - echo 'Publishing failure release to GitHub...'
+  - export UPLOADTOOL_SUFFIX="failure"
+  - export UPLOADTOOL_BODY="Instructions can be found [here](https://github.com/${TRAVIS_REPO_SLUG}/blob/master/README.md)\n\nThis is the ***failure experimental build test*** for testing new features and debug.\n\nTravis CI build log: $TRAVIS_BUILD_WEB_URL"
+  - bash upload.sh result/*
+
 branches:
   except:
     - # Do not build tags that we create when we upload to GitHub Releases
