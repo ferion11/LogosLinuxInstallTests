@@ -182,7 +182,8 @@ logos_install_window(){
 	xdotool key --delay 1000 space
 }
 
-ffmpeg -f x11grab -video_size 1024x768 -i $DISPLAY -codec:v libx264 -r 12 result/video2.mp4 >/dev/null &
+echo "* Starting the video record:"
+ffmpeg -loglevel quiet -f x11grab -video_size 1024x768 -i $DISPLAY -codec:v libx264 -r 12 result/video2.mp4 &
 FFMPEG_PID=$!
 finish_the_script_at_end() {
 	echo "------- Ending for DEBUG -------"
