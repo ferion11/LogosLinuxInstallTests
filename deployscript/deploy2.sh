@@ -3,8 +3,9 @@
 die() { echo >&2 "$*"; exit 1; };
 #=========================
 
-export WORKDIR="/tmp/test_workdir_2"
-export INSTALLDIR="${HOME}/LogosBible_Linux_P_test_2"
+if [ -z "$WORKDIR" ]; then export WORKDIR="$(mktemp -d)" ; fi
+if [ -z "$INSTALLDIR" ]; then export INSTALLDIR="$HOME/LogosBible_Linux_P_2" ; fi
+
 echo "******* Option 2 *******"
 export DISPLAY=:98.0
 
@@ -249,14 +250,11 @@ wait_window_and_print "Winetricks fontsmooth"
 echo "* waiting Winetricks dotnet48"
 wait_window_and_print "Winetricks dotnet48"
 
-echo "* waiting Winetricks dotnet48 end, at least 4min to download ..."
-sleep 120
-echo "... only 2min pass, more 2min to go ..."
-sleep 60
-echo "... only 3min pass, more 1min to go ..."
-sleep 60
-echo "... end of 4min, wineserver -w now:"
-wait_for_wine_process
+echo "* waiting Winetricks dotnet48 end..."
+echo "find sub-process winetricks:"
+WINETRICKS_PID="$(pgrep -P "${INSTALL_SCRIPT_PID}" winetricks)"
+echo "wait for linux process WINETRICKS_PID: ${WINETRICKS_PID}"
+tail --pid="${WINETRICKS_PID}" -f /dev/null
 
 
 echo "* Question: download and install Logos"
@@ -268,6 +266,7 @@ printscreen
 
 echo "* Logos install window:"
 logos_install_window
+
 
 echo "* Question: clean temp files"
 close_question_yes_windows

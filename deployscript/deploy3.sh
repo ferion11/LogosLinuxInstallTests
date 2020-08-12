@@ -3,8 +3,9 @@
 die() { echo >&2 "$*"; exit 1; };
 #=========================
 
-export WORKDIR="/tmp/test_workdir_3"
-export INSTALLDIR="${HOME}/LogosBible_Linux_P_test_3"
+if [ -z "$WORKDIR" ]; then export WORKDIR="$(mktemp -d)" ; fi
+if [ -z "$INSTALLDIR" ]; then export INSTALLDIR="$HOME/LogosBible_Linux_P_3" ; fi
+
 echo "******* Option 3 *******"
 export DISPLAY=:97.0
 
@@ -182,12 +183,17 @@ logos_install_window(){
 	xdotool key --delay 1000 space
 }
 
+echo "* Starting the video record:"
+ffmpeg -loglevel quiet -f x11grab -video_size 1024x768 -i $DISPLAY -codec:v libx264 -r 12 result/video3.mp4 &
+FFMPEG_PID=$!
 finish_the_script_at_end() {
 	echo "------- Ending for DEBUG -------"
 	# some more info:
 	ps ux | grep wine
 	printscreen
 
+	kill -15 "${FFMPEG_PID}"
+	sleep 2
 	kill -15 "${Xvfb_PID}"
 	tar cvzf screenshots_3.tar.gz screenshots_3
 	mv screenshots_3.tar.gz result/
@@ -210,6 +216,7 @@ chmod +x ./install_AppImageWine_and_Logos.sh
 
 echo "* Starting install_AppImageWine_and_Logos.sh"
 ./install_AppImageWine_and_Logos.sh &
+INSTALL_SCRIPT_PID=${!}
 #--------
 
 # Starting Steps here:
@@ -246,14 +253,11 @@ wait_window_and_print "Winetricks fontsmooth"
 echo "* waiting Winetricks dotnet48"
 wait_window_and_print "Winetricks dotnet48"
 
-echo "* waiting Winetricks dotnet48 end, at least 4min to download ..."
-sleep 120
-echo "... only 2min pass, more 2min to go ..."
-sleep 60
-echo "... only 3min pass, more 1min to go ..."
-sleep 60
-echo "... end of 4min, wineserver -w now:"
-wait_for_wine_process
+echo "* waiting Winetricks dotnet48 end..."
+echo "find sub-process winetricks:"
+WINETRICKS_PID="$(pgrep -P "${INSTALL_SCRIPT_PID}" winetricks)"
+echo "wait for linux process WINETRICKS_PID: ${WINETRICKS_PID}"
+tail --pid="${WINETRICKS_PID}" -f /dev/null
 
 
 echo "* Question: download and install Logos"
@@ -278,6 +282,7 @@ sleep 14
 printscreen
 #---------------
 
+kill -15 "${FFMPEG_PID}"
 # kill Xvfb whenever you feel like it
 echo "* Stopping the Xvfb ..."
 kill -15 "${Xvfb_PID}"
