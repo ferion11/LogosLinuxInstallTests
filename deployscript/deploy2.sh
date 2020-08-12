@@ -2,6 +2,9 @@
 #=========================
 die() { echo >&2 "$*"; exit 1; };
 #=========================
+echo "------- Running: -------"
+head -3 ./install_AppImageWine_and_Logos.sh
+echo "---------------------"
 
 if [ -z "$WORKDIR" ]; then export WORKDIR="$(mktemp -d)" ; fi
 if [ -z "$INSTALLDIR" ]; then export INSTALLDIR="$HOME/LogosBible_Linux_P_2" ; fi
