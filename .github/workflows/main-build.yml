@@ -16,12 +16,12 @@ jobs:
 
     - name: Run the install.sh and preparations
       run: |
-        ./deployscript/install.sh
+        bash ./deployscript/install.sh
         wget "https://raw.githubusercontent.com/ferion11/LogosLinuxInstaller/master/install_AppImageWine_and_Logos.sh"
         mkdir result
 
     - name: Run the deploy2.sh
-      run: ./deployscript/deploy2.sh
+      run: bash ./deployscript/deploy2.sh
 
     - name: Run the md5sum_util.sh
       run: |
