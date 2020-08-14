@@ -15,15 +15,18 @@ jobs:
     - uses: actions/checkout@v2
 
     - name: Run the install.sh and preparations
+      shell: bash
       run: |
         bash ./deployscript/install.sh
         wget "https://raw.githubusercontent.com/ferion11/LogosLinuxInstaller/master/install_AppImageWine_and_Logos.sh"
         mkdir result
 
     - name: Run the deploy1.sh
+      shell: bash
       run: bash ./deployscript/deploy1.sh
 
     - name: Run the md5sum_util.sh
+      shell: bash
       run: |
         wget -c https://github.com/ferion11/libsutil/releases/download/md5sum_util_v0.1/md5sum_util.sh
         bash md5sum_util.sh result
@@ -34,56 +37,62 @@ jobs:
         name: my-artifact1
         path: result/
 
-  test32:
-    runs-on: ubuntu-18.04
-
-    steps:
-    # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-    - uses: actions/checkout@v2
-
-    - name: Run the install.sh and preparations
-      run: |
-        bash ./deployscript/install.sh
-        wget "https://raw.githubusercontent.com/ferion11/LogosLinuxInstaller/master/install_AppImageWine_and_Logos.sh"
-        mkdir result
-
-    - name: Run the deploy2.sh
-      run: bash ./deployscript/deploy2.sh
-
-    - name: Run the md5sum_util.sh
-      run: |
-        wget -c https://github.com/ferion11/libsutil/releases/download/md5sum_util_v0.1/md5sum_util.sh
-        bash md5sum_util.sh result
-
-    - name: Upload a Build Artifact
-      uses: actions/upload-artifact@v2
-      with:
-        name: my-artifact2
-        path: result/
-
-  test64:
-    runs-on: ubuntu-18.04
-
-    steps:
-    # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-    - uses: actions/checkout@v2
-
-    - name: Run the install.sh and preparations
-      run: |
-        bash ./deployscript/install.sh
-        wget "https://raw.githubusercontent.com/ferion11/LogosLinuxInstaller/master/install_AppImageWine_and_Logos.sh"
-        mkdir result
-
-    - name: Run the deploy3.sh
-      run: bash ./deployscript/deploy3.sh
-
-    - name: Run the md5sum_util.sh
-      run: |
-        wget -c https://github.com/ferion11/libsutil/releases/download/md5sum_util_v0.1/md5sum_util.sh
-        bash md5sum_util.sh result
-
-    - name: Upload a Build Artifact
-      uses: actions/upload-artifact@v2
-      with:
-        name: my-artifact3
-        path: result/
+#  test32:
+#    runs-on: ubuntu-18.04
+#
+#    steps:
+#    # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+#    - uses: actions/checkout@v2
+#
+#    - name: Run the install.sh and preparations
+#      shell: bash
+#      run: |
+#        bash ./deployscript/install.sh
+#        wget "https://raw.githubusercontent.com/ferion11/LogosLinuxInstaller/master/install_AppImageWine_and_Logos.sh"
+#        mkdir result
+#
+#    - name: Run the deploy2.sh
+#      shell: bash
+#      run: bash ./deployscript/deploy2.sh
+#
+#    - name: Run the md5sum_util.sh
+#      shell: bash
+#      run: |
+#        wget -c https://github.com/ferion11/libsutil/releases/download/md5sum_util_v0.1/md5sum_util.sh
+#        bash md5sum_util.sh result
+#
+#    - name: Upload a Build Artifact
+#      uses: actions/upload-artifact@v2
+#      with:
+#        name: my-artifact2
+#        path: result/
+#
+#  test64:
+#    runs-on: ubuntu-18.04
+#
+#    steps:
+#    # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+#    - uses: actions/checkout@v2
+#
+#    - name: Run the install.sh and preparations
+#      shell: bash
+#      run: |
+#        bash ./deployscript/install.sh
+#        wget "https://raw.githubusercontent.com/ferion11/LogosLinuxInstaller/master/install_AppImageWine_and_Logos.sh"
+#        mkdir result
+#
+#    - name: Run the deploy3.sh
+#      shell: bash
+#      run: bash ./deployscript/deploy3.sh
+#
+#    - name: Run the md5sum_util.sh
+#      shell: bash
+#      run: |
+#        wget -c https://github.com/ferion11/libsutil/releases/download/md5sum_util_v0.1/md5sum_util.sh
+#        bash md5sum_util.sh result
+#
+#    - name: Upload a Build Artifact
+#      uses: actions/upload-artifact@v2
+#      with:
+#        name: my-artifact3
+#        path: result/
