@@ -156,7 +156,7 @@ logos_install_window(){
 	printscreen
 	echo "* Sending installer keystrokes..."
 	xdotool key --delay 500 space
-	sleep "0.5"
+	sleep 1
 	printscreen
 	xdotool key --delay 500 space
 	sleep "0.5"
@@ -167,10 +167,10 @@ logos_install_window(){
 	xdotool key --delay 500 Tab
 	sleep "0.5"
 	xdotool key --delay 500 space
-	sleep "0.5"
+	sleep 1
 	printscreen
 	xdotool key --delay 500 space
-	sleep "0.5"
+	sleep 1
 	printscreen
 	xdotool key --delay 500 space
 	echo "... waiting 4min for the last screen ..."
