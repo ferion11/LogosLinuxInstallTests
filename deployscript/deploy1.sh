@@ -28,100 +28,99 @@ printscreen() {
 
 close_question_1_yes_1_windows() {
 	while ! WID=$(xdotool search --name "Question: Install Logos Bible"); do
-		sleep 2
+		sleep "1"
 	done
 	printscreen
 	echo "* Sending installer keystrokes..."
-	xdotool key --delay 1000 Tab
-	sleep 1
-	xdotool key --delay 1000 Tab
-	sleep 1
-	xdotool key --delay 1000 space
-	sleep 1
+	xdotool key --delay 500 Tab
+	sleep "0.5"
+	xdotool key --delay 500 Tab
+	sleep "0.5"
+	xdotool key --delay 500 space
+	sleep "0.5"
 }
 
 close_question_yes_windows() {
 	while ! WID=$(xdotool search --name "Question:*"); do
-		sleep 2
+		sleep "1"
 	done
 	printscreen
 	echo "* Sending installer keystrokes..."
-	xdotool key --delay 1000 space
-	sleep 1
+	xdotool key --delay 500 space
+	sleep "0.5"
 }
 
 close_question_no_windows() {
 	while ! WID=$(xdotool search --name "Question:*"); do
-		sleep 2
+		sleep "1"
 	done
 	printscreen
 	echo "* Sending installer keystrokes..."
-	xdotool key --delay 1000 Tab
-	sleep 1
-	xdotool key --delay 1000 Tab
-	sleep 1
-	xdotool key --delay 1000 space
-	sleep 1
+	xdotool key --delay 500 Tab
+	sleep "0.5"
+	xdotool key --delay 500 Tab
+	sleep "0.5"
+	xdotool key --delay 500 space
+	sleep "0.5"
 }
 
 close_wine_mono_init_windows() {
 	while ! WID=$(xdotool search --name "Wine Mono Installer"); do
-		sleep 2
+		sleep "1"
 	done
 	printscreen
 	echo "Sending installer keystrokes..."
-	xdotool key --window $WID --delay 1000 Tab
-	sleep 1
-	xdotool key --window $WID --delay 1000 space
-	sleep 1
+	xdotool key --window $WID --delay 500 Tab
+	sleep "0.5"
+	xdotool key --window $WID --delay 500 space
+	sleep "0.5"
 }
 
 close_wine_gecko_init_windows() {
 	while ! WID=$(xdotool search --name "Wine Gecko Installer"); do
-		sleep 2
+		sleep "1"
 	done
 	printscreen
 	echo "Sending installer keystrokes..."
-	xdotool key --window $WID --delay 1000 Tab
-	sleep 1
-	xdotool key --window $WID --delay 1000 space
-	sleep 1
+	xdotool key --window $WID --delay 500 Tab
+	sleep "0.5"
+	xdotool key --window $WID --delay 500 space
+	sleep "0.5"
 }
 
 wait_window_and_print(){
 	echo "* start waiting for $@ ..."
 	while ! WID=$(xdotool search --name "$@"); do
-		sleep 1
+		sleep "1"
 	done
-	echo "... found! And print:"
+	echo "... found \"${*}\"! And print:"
 	printscreen
-	sleep 2
 }
 
 logos_install_window(){
 	while ! WID=$(xdotool search --name "Logos Bible Software Setup"); do
-		sleep 2
+		sleep "1"
 	done
 	printscreen
 	echo "* Sending installer keystrokes..."
-	xdotool key --delay 1000 space
-	sleep 1
+	xdotool key --delay 500 space
+	sleep "0.5"
 	printscreen
-	xdotool key --delay 1000 space
-	sleep 1
-	xdotool key --delay 1000 Tab
-	sleep 1
-	xdotool key --delay 1000 Tab
-	sleep 1
-	xdotool key --delay 1000 Tab
-	sleep 1
-	xdotool key --delay 1000 space
-	sleep 1
+	xdotool key --delay 500 space
+	sleep "0.5"
+	xdotool key --delay 500 Tab
+	sleep "0.5"
+	xdotool key --delay 500 Tab
+	sleep "0.5"
+	xdotool key --delay 500 Tab
+	sleep "0.5"
+	xdotool key --delay 500 space
+	sleep "0.5"
 	printscreen
-	xdotool key --delay 1000 space
-	sleep 1
+	xdotool key --delay 500 space
+	sleep "0.5"
 	printscreen
-	xdotool key --delay 1000 space
+	xdotool key --delay 500 space
 	echo "... waiting 4min for the last screen ..."
 	printscreen
 	sleep 120
@@ -131,12 +130,12 @@ logos_install_window(){
 	sleep 60
 	echo "... end of 4min, screenshot and space key:"
 	printscreen
-	xdotool key --delay 1000 space
+	xdotool key --delay 500 space
 }
 
 echo "* Starting the video record:"
 ffmpeg -loglevel quiet -f x11grab -video_size 1024x768 -i $DISPLAY -codec:v libx264 -r 12 result/video1.mp4 &
-FFMPEG_PID=$!
+FFMPEG_PID=${!}
 finish_the_script_at_end() {
 	echo "------- Ending for DEBUG -------"
 	# some more info:
