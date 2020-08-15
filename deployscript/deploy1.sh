@@ -134,7 +134,7 @@ logos_install_window(){
 }
 
 echo "* Starting the video record:"
-ffmpeg -loglevel quiet -f x11grab -video_size 1024x768 -i $DISPLAY -codec:v libx264 -r 12 result/video1.mp4 &
+ffmpeg -loglevel quiet -f x11grab -video_size 1024x768 -i $DISPLAY -codec:v libx264 -r 12 video1.mp4 &
 FFMPEG_PID=${!}
 finish_the_script_at_end() {
 	echo "------- Ending for DEBUG -------"
@@ -145,8 +145,8 @@ finish_the_script_at_end() {
 	kill -15 "${FFMPEG_PID}"
 	sleep 2
 	kill -15 "${Xvfb_PID}"
+	sleep 2
 	tar cvzf screenshots_1.tar.gz screenshots_1
-	mv screenshots_1.tar.gz result/
 
 	exit 0
 }
@@ -234,13 +234,20 @@ close_question_yes_windows
 echo "... waiting 14s to Logos start:"
 sleep 14
 printscreen
+
+echo "find sub-process Logos.sh:"
+LOGOS_SH_PID="$(pgrep -P "${INSTALL_SCRIPT_PID}" Logos.sh)"
+echo "sending signal 15 to Logos.sh with PID: ${LOGOS_SH_PID}"
+kill -15 "${LOGOS_SH_PID}"
+sleep 2
 #---------------
 
 kill -15 "${FFMPEG_PID}"
+sleep 2
 # kill Xvfb whenever you feel like it
 echo "* Stopping the Xvfb ..."
 kill -15 "${Xvfb_PID}"
+sleep 2
 #---------------
 
 tar cvzf screenshots_1.tar.gz screenshots_1
-mv screenshots_1.tar.gz result/
