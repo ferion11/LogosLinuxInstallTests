@@ -224,8 +224,6 @@ printscreen
 echo "* Logos install window:"
 logos_install_window
 
-#DEBUG FORCE END:
-finish_the_script_at_end
 echo "* Question: clean temp files"
 close_question_yes_windows
 
