@@ -143,7 +143,7 @@ close_wine_gecko_init_windows() {
 wait_window_and_print(){
 	echo "* start waiting for $@ ..."
 	while ! WID=$(xdotool search --name "$@"); do
-		sleep "1"
+		sleep "0.2"
 	done
 	echo "... found \"${*}\"! And print:"
 	printscreen
@@ -247,10 +247,10 @@ echo "* Question: winetricks:"
 close_question_yes_windows
 
 echo "* waiting Winetricks corefonts"
-wait_window_and_print "Winetricks corefonts" &
+wait_window_and_print "Winetricks corefonts"
 
 echo "* waiting Winetricks fontsmooth"
-wait_window_and_print "Winetricks fontsmooth" &
+wait_window_and_print "Winetricks fontsmooth"
 
 echo "* waiting Winetricks dotnet48"
 wait_window_and_print "Winetricks dotnet48"
