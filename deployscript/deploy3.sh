@@ -273,9 +273,6 @@ echo "* Logos install window:"
 logos_install_window
 
 
-echo "* Question: clean temp files"
-close_question_yes_windows
-
 echo "* Question: run Logos.sh"
 close_question_yes_windows
 
