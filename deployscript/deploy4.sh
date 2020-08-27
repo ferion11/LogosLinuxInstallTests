@@ -1,7 +1,7 @@
 #!/bin/bash
-#=========================
+#=================================================
 die() { echo >&2 "$*"; exit 1; };
-#=========================
+#=================================================
 echo "------- Running: -------"
 head -3 ./install_AppImageWine_and_Logos.sh
 echo "---------------------"
@@ -18,33 +18,18 @@ Xvfb_PID=$!
 sleep 7
 echo "* Using DISPLAY: $DISPLAY"
 
-#=========================
+#=================================================
 PRINT_NUM=1
 printscreen() {
 	xwd -display $DISPLAY -root -silent | convert xwd:- png:./screenshots_4/img_${PRINT_NUM}.png
 	PRINT_NUM=$((PRINT_NUM+1))
 }
-#=========================
-
-close_question_1_yes_1_windows() {
-	while ! WID=$(xdotool search --name "Question: Install Logos Bible"); do
-		sleep "1"
-	done
-	printscreen
-	echo "* Sending installer keystrokes..."
-	xdotool key --delay 500 Tab
-	sleep "0.5"
-	xdotool key --delay 500 Tab
-	sleep "0.5"
-	xdotool key --delay 500 space
-	sleep "0.5"
-}
+#=================================================
 
 close_question_1_yes_4_windows() {
 	while ! WID=$(xdotool search --name "Question: Install Logos Bible"); do
 		sleep "1"
 	done
-	printscreen
 	echo "* Sending installer keystrokes..."
 	xdotool key --delay 500 Tab
 	sleep "0.5"
@@ -83,12 +68,12 @@ close_question_no_windows() {
 	while ! WID=$(xdotool search --name "Question:*"); do
 		sleep "1"
 	done
-	printscreen
 	echo "* Sending installer keystrokes..."
 	xdotool key --delay 500 Tab
 	sleep "0.5"
 	xdotool key --delay 500 Tab
 	sleep "0.5"
+	printscreen
 	xdotool key --delay 500 space
 	sleep "0.5"
 }
@@ -97,10 +82,10 @@ close_wine_mono_init_windows() {
 	while ! WID=$(xdotool search --name "Wine Mono Installer"); do
 		sleep "1"
 	done
-	printscreen
 	echo "Sending installer keystrokes..."
 	xdotool key --window $WID --delay 500 Tab
 	sleep "0.5"
+	printscreen
 	xdotool key --window $WID --delay 500 space
 	sleep "0.5"
 }
@@ -109,10 +94,10 @@ close_wine_gecko_init_windows() {
 	while ! WID=$(xdotool search --name "Wine Gecko Installer"); do
 		sleep "1"
 	done
-	printscreen
 	echo "Sending installer keystrokes..."
 	xdotool key --window $WID --delay 500 Tab
 	sleep "0.5"
+	printscreen
 	xdotool key --window $WID --delay 500 space
 	sleep "0.5"
 }
@@ -121,10 +106,10 @@ close_wine_error_init_windows() {
 	while ! WID="$(xdotool search --name "rundll32.exe*")"; do
 		sleep "1"
 	done
-	printscreen
 	echo "Sending installer keystrokes..."
 	xdotool key --window $WID --delay 500 Tab
 	sleep "0.5"
+	printscreen
 	xdotool key --window $WID --delay 500 space
 	sleep "0.5"
 }
@@ -143,9 +128,11 @@ logos_install_window(){
 		sleep "1"
 	done
 	printscreen
+	sleep 7
+	printscreen
 	echo "* Sending installer keystrokes..."
 	xdotool key --delay 500 space
-	sleep 1
+	sleep 3
 	printscreen
 	xdotool key --delay 500 space
 	sleep "0.5"
@@ -155,21 +142,20 @@ logos_install_window(){
 	sleep "0.5"
 	xdotool key --delay 500 Tab
 	sleep "0.5"
-	xdotool key --delay 500 space
-	sleep 1
 	printscreen
 	xdotool key --delay 500 space
-	sleep 1
+	sleep 3
 	printscreen
 	xdotool key --delay 500 space
-	echo "... waiting 4min for the last screen ..."
+	sleep 3
 	printscreen
-	sleep 120
-	echo "... only 2min pass, screenshot, more 2min to go ..."
-	sleep 60
-	echo "... only 3min pass, screenshot, more 1min to go ..."
-	sleep 60
-	echo "... end of 4min, screenshot and space key:"
+	xdotool key --delay 500 space
+	echo "... waiting 30s for the last screen ..."
+	printscreen
+	sleep 2
+	printscreen
+	sleep 28
+	echo "... end of 30s, screenshot and space key:"
 	printscreen
 	xdotool key --delay 500 space
 }
