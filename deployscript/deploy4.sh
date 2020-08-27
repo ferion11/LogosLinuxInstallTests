@@ -175,7 +175,7 @@ logos_install_window(){
 }
 
 echo "* Starting the video record:"
-ffmpeg -loglevel quiet -f x11grab -video_size 1024x768 -i $DISPLAY -codec:v libx264 -r 12 video1.mp4 &
+ffmpeg -loglevel quiet -f x11grab -video_size 1024x768 -i $DISPLAY -codec:v libx264 -r 12 video4.mp4 &
 FFMPEG_PID=${!}
 finish_the_script_at_end() {
 	echo "------- Ending for DEBUG -------"
@@ -187,7 +187,7 @@ finish_the_script_at_end() {
 	sleep 2
 	kill -SIGTERM "${Xvfb_PID}"
 	sleep 2
-	tar cvzf screenshots_1.tar.gz screenshots_1
+	tar cvzf screenshots_4.tar.gz screenshots_4
 
 	exit 0
 }
@@ -202,7 +202,7 @@ killall_for_wine_process() {
 }
 #-------------------------------------------------
 #===========================================================================================
-mkdir screenshots_1
+mkdir screenshots_4
 
 chmod +x ./install_AppImageWine_and_Logos.sh
 
@@ -303,4 +303,4 @@ kill -SIGTERM "${Xvfb_PID}"
 sleep 2
 #---------------
 
-tar cvzf screenshots_1.tar.gz screenshots_1
+tar cvzf screenshots_4.tar.gz screenshots_4

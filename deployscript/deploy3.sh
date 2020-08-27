@@ -196,6 +196,7 @@ echo "* Starting install_AppImageWine_and_Logos.sh"
 INSTALL_SCRIPT_PID=${!}
 #--------
 
+
 # Starting Steps here:
 echo "* Question: using the AppImage installation (option 3):"
 close_question_1_yes_3_windows
