@@ -11,6 +11,7 @@ env:
     - INSTALLATIONN=1
     - INSTALLATIONN=2
     - INSTALLATIONN=3
+    - INSTALLATIONN=4
 
 install:
   - bash deployscript/install.sh

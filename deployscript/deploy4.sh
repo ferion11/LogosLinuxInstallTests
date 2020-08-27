@@ -7,10 +7,10 @@ head -3 ./install_AppImageWine_and_Logos.sh
 echo "---------------------"
 
 if [ -z "$WORKDIR" ]; then export WORKDIR="$(mktemp -d)" ; fi
-if [ -z "$INSTALLDIR" ]; then export INSTALLDIR="$HOME/LogosBible_Linux_P_2" ; fi
+if [ -z "$INSTALLDIR" ]; then export INSTALLDIR="$HOME/LogosBible_Linux_P_4" ; fi
 
-echo "******* Option 2 *******"
-export DISPLAY=:98.0
+echo "******* Option 4 *******"
+export DISPLAY=:95.0
 
 echo "======= DEBUG: Starting xvfb ======="
 Xvfb $DISPLAY -screen 0 1024x768x24 &
@@ -21,7 +21,7 @@ echo "* Using DISPLAY: $DISPLAY"
 #=========================
 PRINT_NUM=1
 printscreen() {
-	xwd -display $DISPLAY -root -silent | convert xwd:- png:./screenshots_2/img_${PRINT_NUM}.png
+	xwd -display $DISPLAY -root -silent | convert xwd:- png:./screenshots_4/img_${PRINT_NUM}.png
 	PRINT_NUM=$((PRINT_NUM+1))
 }
 #=========================
@@ -40,7 +40,7 @@ close_question_1_yes_1_windows() {
 	sleep "0.5"
 }
 
-close_question_1_yes_2_windows() {
+close_question_1_yes_4_windows() {
 	while ! WID=$(xdotool search --name "Question: Install Logos Bible"); do
 		sleep "1"
 	done
@@ -51,6 +51,10 @@ close_question_1_yes_2_windows() {
 	xdotool key --delay 500 Tab
 	sleep "0.5"
 	xdotool key --delay 500 Tab
+	sleep "0.5"
+	xdotool key --delay 500 Down
+	sleep "0.5"
+	xdotool key --delay 500 Down
 	sleep "0.5"
 	xdotool key --delay 500 Down
 	sleep "0.5"
@@ -113,6 +117,18 @@ close_wine_gecko_init_windows() {
 	sleep "0.5"
 }
 
+close_wine_error_init_windows() {
+	while ! WID="$(xdotool search --name "rundll32.exe*")"; do
+		sleep "1"
+	done
+	printscreen
+	echo "Sending installer keystrokes..."
+	xdotool key --window $WID --delay 500 Tab
+	sleep "0.5"
+	xdotool key --window $WID --delay 500 space
+	sleep "0.5"
+}
+
 wait_window_and_print(){
 	echo "* start waiting for $@ ..."
 	while ! WID=$(xdotool search --name "$@"); do
@@ -159,7 +175,7 @@ logos_install_window(){
 }
 
 echo "* Starting the video record:"
-ffmpeg -loglevel quiet -f x11grab -video_size 1024x768 -i $DISPLAY -codec:v libx264 -r 12 video2.mp4 &
+ffmpeg -loglevel quiet -f x11grab -video_size 1024x768 -i $DISPLAY -codec:v libx264 -r 12 video1.mp4 &
 FFMPEG_PID=${!}
 finish_the_script_at_end() {
 	echo "------- Ending for DEBUG -------"
@@ -171,12 +187,13 @@ finish_the_script_at_end() {
 	sleep 2
 	kill -SIGTERM "${Xvfb_PID}"
 	sleep 2
-	tar cvzf screenshots_2.tar.gz screenshots_2
+	tar cvzf screenshots_1.tar.gz screenshots_1
 
 	exit 0
 }
 
 #-------------------------------------------------
+export PATH="${INSTALLDIR}/data/bin":$PATH
 wait_for_wine_process() {
 	WINEARCH=win32 WINEPREFIX="${INSTALLDIR}/data/wine32_bottle" wineserver -w
 }
@@ -185,7 +202,7 @@ killall_for_wine_process() {
 }
 #-------------------------------------------------
 #===========================================================================================
-mkdir screenshots_2
+mkdir screenshots_1
 
 chmod +x ./install_AppImageWine_and_Logos.sh
 
@@ -194,23 +211,29 @@ echo "* Starting install_AppImageWine_and_Logos.sh"
 INSTALL_SCRIPT_PID=${!}
 #--------
 
+
 # Starting Steps here:
-echo "* Question: using the AppImage installation (option 2):"
-close_question_1_yes_2_windows
+echo "* Question: using the AppImage installation (option 4):"
+close_question_1_yes_4_windows
+
+echo "* Downloading AppImage:"
+sleep 1
+printscreen
 
 
 echo "* Question: wine bottle:"
 close_question_yes_windows
 
+# feedback:
+echo "* ls -la on INSTALLDIR/data/bin and INSTALLDIR/data"
+ls -la "${INSTALLDIR}/data/bin"
+ls -la "${INSTALLDIR}/data"
 
 echo "* Waiting to initialize wine..."
 echo "* wine mono cancel:"
 close_wine_mono_init_windows
 echo "* wine gecko cancel:"
 close_wine_gecko_init_windows
-
-echo "* ls -la on INSTALLDIR/data"
-ls -la "${INSTALLDIR}/data"
 
 
 echo "* Question: winetricks:"
@@ -232,8 +255,23 @@ echo "wait for linux process WINETRICKS_PID: ${WINETRICKS_PID}"
 tail --pid="${WINETRICKS_PID}" -f /dev/null
 
 
+#-------
+echo "* Downloading final AppImage:"
+sleep 1
+printscreen
+
+echo "* closing erro at wine bottle update..."
+close_wine_error_init_windows
+
+echo "* Waiting to initialize last wine..."
+echo "* wine gecko cancel:"
+close_wine_gecko_init_windows
+#-------
+
+
 echo "* Question: download and install Logos"
 close_question_yes_windows
+
 
 echo "* Downloading Logos:"
 sleep 1
@@ -265,4 +303,4 @@ kill -SIGTERM "${Xvfb_PID}"
 sleep 2
 #---------------
 
-tar cvzf screenshots_2.tar.gz screenshots_2
+tar cvzf screenshots_1.tar.gz screenshots_1

@@ -40,31 +40,6 @@ close_question_1_yes_1_windows() {
 	sleep "0.5"
 }
 
-close_question_1_yes_2_windows() {
-	while ! WID=$(xdotool search --name "Question: Install Logos Bible"); do
-		sleep "1"
-	done
-	printscreen
-	echo "* Sending installer keystrokes..."
-	xdotool key --delay 500 Tab
-	sleep "0.5"
-	xdotool key --delay 500 Tab
-	sleep "0.5"
-	xdotool key --delay 500 Tab
-	sleep "0.5"
-	xdotool key --delay 500 Down
-	sleep "0.5"
-	xdotool key --delay 500 space
-	sleep "0.5"
-	xdotool key --delay 500 Tab
-	sleep "0.5"
-	xdotool key --delay 500 Tab
-	sleep "0.5"
-	printscreen
-	xdotool key --delay 500 space
-	sleep "0.5"
-}
-
 close_question_1_yes_3_windows() {
 	while ! WID=$(xdotool search --name "Question: Install Logos Bible"); do
 		sleep "1"

@@ -1,0 +1,33 @@
+name: op4-Logos32AppImage2
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  test32appimage2:
+    runs-on: ubuntu-18.04
+
+    steps:
+    # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+    - uses: actions/checkout@v2
+
+    - name: Run the install.sh and preparations
+      shell: bash
+      run: |
+        bash ./deployscript/install.sh
+        wget "https://raw.githubusercontent.com/ferion11/LogosLinuxInstaller/master/install_AppImageWine_and_Logos.sh"
+
+    - name: Run the deploy4.sh
+      shell: bash
+      run: bash ./deployscript/deploy4.sh
+
+    - name: Upload a Build Artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: my-artifact4
+        path: |
+          screenshots_4.tar.gz
+          video4.mp4
