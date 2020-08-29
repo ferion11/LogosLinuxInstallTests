@@ -166,9 +166,11 @@ finish_the_script_at_end() {
 
 #-------------------------------------------------
 wait_for_wine_process() {
+	echo "* wineserver -w"
 	WINEARCH=win64 WINEPREFIX="${INSTALLDIR}/data/wine64_bottle" wineserver -w
 }
 killall_for_wine_process() {
+	echo "* wineserver -k"
 	WINEARCH=win64 WINEPREFIX="${INSTALLDIR}/data/wine64_bottle" wineserver -k
 }
 #-------------------------------------------------

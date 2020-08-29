@@ -181,9 +181,11 @@ finish_the_script_at_end() {
 #-------------------------------------------------
 export PATH="${INSTALLDIR}/data/bin":$PATH
 wait_for_wine_process() {
+	echo "* wineserver -w"
 	WINEARCH=win32 WINEPREFIX="${INSTALLDIR}/data/wine32_bottle" wineserver -w
 }
 killall_for_wine_process() {
+	echo "* wineserver -k"
 	WINEARCH=win32 WINEPREFIX="${INSTALLDIR}/data/wine32_bottle" wineserver -k
 }
 #-------------------------------------------------
@@ -242,6 +244,9 @@ tail --pid="${WINETRICKS_PID}" -f /dev/null
 
 
 #-------
+sleep 2
+printscreen
+wait_for_wine_process
 echo "* Downloading final AppImage:"
 sleep 1
 printscreen
