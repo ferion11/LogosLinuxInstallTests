@@ -197,6 +197,7 @@ echo "* wine mono cancel:"
 close_wine_mono_init_windows
 echo "* wine gecko cancel:"
 close_wine_gecko_init_windows
+wait_for_wine_process
 
 echo "* ls -la on INSTALLDIR/data"
 ls -la "${INSTALLDIR}/data"
@@ -230,6 +231,7 @@ printscreen
 
 echo "* Logos install window:"
 logos_install_window
+wait_for_wine_process
 
 
 echo "* Question: run Logos.sh"
@@ -239,11 +241,12 @@ echo "... waiting 21s to Logos start:"
 sleep 21
 printscreen
 
-echo "find sub-process Logos.sh:"
-LOGOS_SH_PID="$(pgrep -P "${INSTALL_SCRIPT_PID}" Logos.sh)"
-echo "sending signal 15 to Logos.sh with PID: ${LOGOS_SH_PID}"
-kill -SIGTERM "${LOGOS_SH_PID}"
-sleep 2
+#echo "find sub-process Logos.sh:"
+#LOGOS_SH_PID="$(pgrep -P "${INSTALL_SCRIPT_PID}" Logos.sh)"
+#echo "sending signal 15 to Logos.sh with PID: ${LOGOS_SH_PID}"
+#kill -SIGTERM "${LOGOS_SH_PID}"
+#sleep 2
+killall_for_wine_process
 #---------------
 
 kill -SIGTERM "${FFMPEG_PID}"
