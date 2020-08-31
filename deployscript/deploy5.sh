@@ -169,6 +169,8 @@ finish_the_script_at_end() {
 }
 
 #-------------------------------------------------
+export OLDPATH="${PATH}"
+export PATH="${INSTALLDIR}/data/bin":$PATH
 wait_for_wine_process() {
 	echo "* wineserver -w"
 	WINEARCH=win64 WINEPREFIX="${INSTALLDIR}/data/wine64_bottle" wineserver -w
@@ -190,7 +192,7 @@ INSTALL_SCRIPT_PID=${!}
 
 
 # Starting Steps here:
-echo "* Question: using the AppImage installation (option 5):"
+echo "* Question: using the fake AppImage + native 64bit installation (option 5):"
 close_question_1_yes_5_windows
 
 sleep "0.5"
@@ -250,6 +252,9 @@ echo "$(ps ux | grep wine)"
 echo "* Changing to native wine-staging 64bits installation..."
 sleep 1
 printscreen
+
+echo "* Setting PATH back to OLDPATH"
+export PATH="${OLDPATH}"
 
 echo "* Waiting to initialize last wine..."
 echo "* wine gecko cancel:"

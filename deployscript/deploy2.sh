@@ -184,7 +184,7 @@ INSTALL_SCRIPT_PID=${!}
 
 
 # Starting Steps here:
-echo "* Question: using the AppImage installation (option 2):"
+echo "* Question: using the native 32bits installation (option 2):"
 close_question_1_yes_2_windows
 
 

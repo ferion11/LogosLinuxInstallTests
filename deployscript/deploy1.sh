@@ -175,7 +175,7 @@ INSTALL_SCRIPT_PID=${!}
 
 
 # Starting Steps here:
-echo "* Question: using the AppImage installation (option 1):"
+echo "* Question: using the default AppImage installation (option 1):"
 close_question_1_yes_1_windows
 
 echo "* Downloading AppImage:"
