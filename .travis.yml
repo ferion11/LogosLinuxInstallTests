@@ -12,9 +12,10 @@ env:
     - INSTALLATIONN=2
     - INSTALLATIONN=3
     - INSTALLATIONN=4
+    - INSTALLATIONN=5
 
 install:
-  - bash deployscript/install.sh
+  - bash deployscript/install.sh "$INSTALLATIONN"
   - wget "https://raw.githubusercontent.com/ferion11/LogosLinuxInstaller/master/install_AppImageWine_and_Logos.sh"
 
 script:

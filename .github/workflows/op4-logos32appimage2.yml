@@ -17,7 +17,7 @@ jobs:
     - name: Run the install.sh and preparations
       shell: bash
       run: |
-        bash ./deployscript/install.sh
+        bash ./deployscript/install.sh 4
         wget "https://raw.githubusercontent.com/ferion11/LogosLinuxInstaller/master/install_AppImageWine_and_Logos.sh"
 
     - name: Run the deploy4.sh
