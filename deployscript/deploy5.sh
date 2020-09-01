@@ -306,6 +306,8 @@ export PATH="${OLDPATH}"
 
 echo "* Waiting to initialize last wine..."
 echo "* wine gecko cancel:"
+#DEBUG END to see video:
+finish_the_script_at_end
 close_wine_gecko_init_windows
 #-------
 
