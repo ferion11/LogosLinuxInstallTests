@@ -153,14 +153,45 @@ finish_the_script_at_end() {
 }
 
 #-------------------------------------------------
+wait_process_using_dir() {
+	VERIFICATION_DIR="${1}"
+	VERIFICATION_TIME=7
+
+	echo "* Starting wait_process_using_dir..."
+	for (( c=1; c<=3; c++ ))
+	do
+		PID_LIST="$(fuser "${VERIFICATION_DIR}")"
+		echo "PID_LIST: ${PID_LIST}"
+		# double quote make one bug!
+		# shellcheck disable=SC2086
+		FIST_PID="$(echo ${PID_LIST} | cut -d' ' -f1)"
+		echo "FIST_PID: ${FIST_PID}"
+		if [ -z "${FIST_PID}" ]; then
+			echo "sleep ${VERIFICATION_TIME}"
+			sleep "${VERIFICATION_TIME}"
+		else
+			c=1
+			echo "tail --pid=${FIST_PID} -f /dev/null"
+			tail --pid="${FIST_PID}" -f /dev/null
+		fi
+		echo "end loop with c=${c}"
+	done
+	echo "* End of wait_process_using_dir."
+}
+
 export PATH="${INSTALLDIR}/data/bin":$PATH
 wait_for_wine_process() {
+	export WINEARCH=win64
+	export WINEPREFIX="${INSTALLDIR}/data/wine64_bottle"
+	wait_process_using_dir "${WINEPREFIX}"
 	echo "* wineserver -w"
-	WINEARCH=win32 WINEPREFIX="${INSTALLDIR}/data/wine32_bottle" wineserver -w
+	wineserver -w
 }
 killall_for_wine_process() {
+	export WINEARCH=win64
+	export WINEPREFIX="${INSTALLDIR}/data/wine64_bottle"
 	echo "* wineserver -k"
-	WINEARCH=win32 WINEPREFIX="${INSTALLDIR}/data/wine32_bottle" wineserver -k
+	wineserver -k
 }
 #-------------------------------------------------
 #===========================================================================================
