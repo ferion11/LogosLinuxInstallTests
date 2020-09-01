@@ -173,9 +173,9 @@ killall_for_wine_process() {
 }
 #-------------------------------------------------
 #===========================================================================================
-# 1680s => 28min
-(sleep 1680 && killall_for_wine_process) &
-CONTROL_KILL_PID=${!}
+## 1680s => 28min
+#(sleep 1680 && killall_for_wine_process) &
+#CONTROL_KILL_PID=${!}
 
 mkdir screenshots_2
 
@@ -253,7 +253,7 @@ printscreen
 killall_for_wine_process
 #---------------
 
-kill -SIGKILL "${CONTROL_KILL_PID}"
+#kill -SIGKILL "${CONTROL_KILL_PID}"
 kill -SIGTERM "${FFMPEG_PID}"
 sleep 2
 # kill Xvfb whenever you feel like it

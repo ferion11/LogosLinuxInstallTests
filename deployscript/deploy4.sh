@@ -190,9 +190,9 @@ killall_for_wine_process() {
 }
 #-------------------------------------------------
 #===========================================================================================
-# 1680s => 28min
-(sleep 1680 && killall_for_wine_process) &
-CONTROL_KILL_PID=${!}
+## 1680s => 28min
+#(sleep 1680 && killall_for_wine_process) &
+#CONTROL_KILL_PID=${!}
 
 mkdir screenshots_4
 
@@ -265,7 +265,6 @@ echo "* Waiting to initialize last wine..."
 echo "* wine gecko cancel:"
 close_wine_gecko_init_windows
 #-------
-wait_for_wine_process
 
 
 echo "* Question: download and install Logos"
@@ -296,7 +295,7 @@ printscreen
 killall_for_wine_process
 #---------------
 
-kill -SIGKILL "${CONTROL_KILL_PID}"
+#kill -SIGKILL "${CONTROL_KILL_PID}"
 kill -SIGTERM "${FFMPEG_PID}"
 sleep 2
 # kill Xvfb whenever you feel like it

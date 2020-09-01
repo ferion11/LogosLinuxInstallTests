@@ -181,9 +181,9 @@ killall_for_wine_process() {
 }
 #-------------------------------------------------
 #===========================================================================================
-# 1680s => 28min
-(sleep 1680 && killall_for_wine_process) &
-CONTROL_KILL_PID=${!}
+## 1680s => 28min
+#(sleep 1680 && killall_for_wine_process) &
+#CONTROL_KILL_PID=${!}
 
 mkdir screenshots_5
 
@@ -247,6 +247,19 @@ WINETRICKS_PID="$(pgrep -P "${INSTALL_SCRIPT_PID}" winetricks)"
 echo "wait for linux process WINETRICKS_PID: ${WINETRICKS_PID}"
 tail --pid="${WINETRICKS_PID}" -f /dev/null
 
+
+echo "* Question: download and install Logos"
+close_question_yes_windows
+
+echo "* Downloading Logos:"
+sleep 1
+printscreen
+
+echo "* Logos install window:"
+logos_install_window
+wait_for_wine_process
+
+
 #-------
 sleep 1
 printscreen
@@ -264,19 +277,6 @@ echo "* Waiting to initialize last wine..."
 echo "* wine gecko cancel:"
 close_wine_gecko_init_windows
 #-------
-wait_for_wine_process
-
-
-echo "* Question: download and install Logos"
-close_question_yes_windows
-
-echo "* Downloading Logos:"
-sleep 1
-printscreen
-
-echo "* Logos install window:"
-logos_install_window
-wait_for_wine_process
 
 
 echo "* Question: run Logos.sh"
@@ -294,7 +294,7 @@ printscreen
 killall_for_wine_process
 #---------------
 
-kill -SIGKILL "${CONTROL_KILL_PID}"
+#kill -SIGKILL "${CONTROL_KILL_PID}"
 kill -SIGTERM "${FFMPEG_PID}"
 sleep 2
 # kill Xvfb whenever you feel like it
