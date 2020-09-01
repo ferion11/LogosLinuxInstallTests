@@ -164,6 +164,10 @@ killall_for_wine_process() {
 }
 #-------------------------------------------------
 #===========================================================================================
+# 1680s => 28min
+(sleep 1680 && killall_for_wine_process) &
+CONTROL_KILL_PID=${!}
+
 mkdir screenshots_1
 
 chmod +x ./install_AppImageWine_and_Logos.sh
@@ -245,6 +249,7 @@ printscreen
 killall_for_wine_process
 #---------------
 
+kill -SIGKILL "${CONTROL_KILL_PID}"
 kill -SIGTERM "${FFMPEG_PID}"
 sleep 2
 # kill Xvfb whenever you feel like it
