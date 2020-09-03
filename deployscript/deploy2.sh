@@ -234,7 +234,9 @@ echo "* wine gecko cancel:"
 close_wine_gecko_init_windows
 wait_for_wine_process
 
-echo "* ls -la on INSTALLDIR/data"
+# feedback:
+echo "* ls -la on INSTALLDIR/data/bin and INSTALLDIR/data"
+ls -la "${INSTALLDIR}/data/bin"
 ls -la "${INSTALLDIR}/data"
 
 

@@ -227,23 +227,16 @@ INSTALL_SCRIPT_PID=${!}
 
 
 # Starting Steps here:
-echo "* Question: using the fake AppImage + native 64bit installation (option 5):"
+echo "* Question: using the 64bits no-deps AppImage (option 5):"
 close_question_1_yes_5_windows
 
 sleep "0.5"
-echo "* Downloading fake AppImage:"
+echo "* Downloading 64bits no-deps AppImage:"
 printscreen
-sleep 2
-echo "* Downloading wine 5.11 to install up to dotnet48:"
-printscreen
-
-echo "extracting wine 5.11"
-wait_window_and_print "Extracting..."
 
 
 echo "* Question: wine bottle:"
 close_question_yes_windows
-
 
 echo "* Waiting to initialize wine..."
 # need another gecko step for 64bit
@@ -256,7 +249,9 @@ echo "* wine gecko cancel (part2):"
 close_wine_gecko_init_windows
 wait_for_wine_process
 
-echo "* ls -la on INSTALLDIR/data"
+# feedback:
+echo "* ls -la on INSTALLDIR/data/bin and INSTALLDIR/data"
+ls -la "${INSTALLDIR}/data/bin"
 ls -la "${INSTALLDIR}/data"
 
 
@@ -290,26 +285,6 @@ echo "* Logos install window:"
 logos_install_window
 wait_for_wine_process
 
-
-#-------
-sleep 1
-printscreen
-sleep 1
-echo "ps ux | grep wine"
-echo "$(ps ux | grep wine)"
-echo "* Changing to native wine-staging 64bits installation..."
-sleep 1
-printscreen
-
-echo "* Setting PATH back to OLDPATH"
-export PATH="${OLDPATH}"
-
-echo "* Waiting to initialize last wine..."
-echo "* wine gecko cancel:"
-#DEBUG END to see video:
-finish_the_script_at_end
-close_wine_gecko_init_windows
-#-------
 
 
 echo "* Question: run Logos.sh"
