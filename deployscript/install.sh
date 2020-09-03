@@ -58,10 +58,6 @@ case "${1}" in
 		;;
 	"4")
 		echo "* Option 4 Deps install:"
-		install_minimal_monitor
-		;;
-	"5")
-		echo "* Option 5 Deps install:"
 		install_full_last
 		;;
 	"lf")

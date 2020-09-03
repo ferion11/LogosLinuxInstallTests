@@ -102,18 +102,6 @@ close_wine_gecko_init_windows() {
 	sleep "0.5"
 }
 
-close_wine_error_init_windows() {
-	while ! WID="$(xdotool search --name "rundll32.exe*")"; do
-		sleep "1"
-	done
-	echo "Sending installer keystrokes..."
-	xdotool key --window $WID --delay 500 Tab
-	sleep "0.5"
-	printscreen
-	xdotool key --window $WID --delay 500 space
-	sleep "0.5"
-}
-
 wait_window_and_print(){
 	echo "* start waiting for $@ ..."
 	while ! WID=$(xdotool search --name "$@"); do
@@ -236,11 +224,11 @@ INSTALL_SCRIPT_PID=${!}
 
 
 # Starting Steps here:
-echo "* Question: using the double AppImage 4.x + 5.x installation (option 4):"
+echo "* Question: using the 64bits no-deps AppImage (option 4):"
 close_question_1_yes_4_windows
 
-echo "* Downloading AppImage:"
-sleep 1
+sleep "0.5"
+echo "* Downloading 64bits no-deps AppImage:"
 printscreen
 
 
@@ -248,9 +236,13 @@ echo "* Question: wine bottle:"
 close_question_yes_windows
 
 echo "* Waiting to initialize wine..."
+# need another gecko step for 64bit
 echo "* wine mono cancel:"
 close_wine_mono_init_windows
 echo "* wine gecko cancel:"
+close_wine_gecko_init_windows
+sleep 7
+echo "* wine gecko cancel (part2):"
 close_wine_gecko_init_windows
 wait_for_wine_process
 
@@ -279,28 +271,8 @@ echo "wait for linux process WINETRICKS_PID: ${WINETRICKS_PID}"
 tail --pid="${WINETRICKS_PID}" -f /dev/null
 
 
-#-------
-sleep 1
-printscreen
-sleep 1
-echo "ps ux | grep wine"
-echo "$(ps ux | grep wine)"
-echo "* Downloading final AppImage:"
-sleep 1
-printscreen
-
-echo "* closing erro at wine bottle update..."
-close_wine_error_init_windows
-
-echo "* Waiting to initialize last wine..."
-echo "* wine gecko cancel:"
-close_wine_gecko_init_windows
-#-------
-
-
 echo "* Question: download and install Logos"
 close_question_yes_windows
-
 
 echo "* Downloading Logos:"
 sleep 1

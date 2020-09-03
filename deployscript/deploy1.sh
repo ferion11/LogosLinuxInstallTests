@@ -181,15 +181,15 @@ wait_process_using_dir() {
 
 export PATH="${INSTALLDIR}/data/bin":$PATH
 wait_for_wine_process() {
-	export WINEARCH=win64
-	export WINEPREFIX="${INSTALLDIR}/data/wine64_bottle"
+	export WINEARCH=win32
+	export WINEPREFIX="${INSTALLDIR}/data/wine32_bottle"
 	wait_process_using_dir "${WINEPREFIX}"
 	echo "* wineserver -w"
 	wineserver -w
 }
 killall_for_wine_process() {
-	export WINEARCH=win64
-	export WINEPREFIX="${INSTALLDIR}/data/wine64_bottle"
+	export WINEARCH=win32
+	export WINEPREFIX="${INSTALLDIR}/data/wine32_bottle"
 	echo "* wineserver -k"
 	wineserver -k
 }

@@ -1,4 +1,4 @@
-name: op4-Logos32AppImage2
+name: op4-Logos64wine2
 
 on:
   push:
@@ -7,7 +7,7 @@ on:
     branches: [ master ]
 
 jobs:
-  test32appimage2:
+  test64wine2:
     runs-on: ubuntu-18.04
 
     steps:
