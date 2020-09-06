@@ -241,8 +241,8 @@ ls -la "${INSTALLDIR}/data"
 echo "* Question: winetricks:"
 close_question_yes_windows
 
-echo "* waiting Winetricks corefonts"
-wait_window_and_print "Winetricks corefonts"
+#echo "* waiting Winetricks corefonts"
+#wait_window_and_print "Winetricks corefonts"
 
 echo "* waiting Winetricks fontsmooth"
 wait_window_and_print "Winetricks fontsmooth"
