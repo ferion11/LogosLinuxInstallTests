@@ -27,7 +27,7 @@ printscreen() {
 #=================================================
 
 close_question_1_yes_4_windows() {
-	while ! WID=$(xdotool search --name "Question: Install Logos Bible"); do
+	while ! WID=$(xdotool search --name "Question: Install Logos Bible*"); do
 		sleep "1"
 	done
 	echo "* Sending installer keystrokes..."
