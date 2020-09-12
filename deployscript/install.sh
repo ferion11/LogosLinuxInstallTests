@@ -20,17 +20,17 @@ configure_wine_for_full_base() {
 
 install_minimal_monitor() {
 	configure_wine_for_full_base
-	sudo apt-get -q -y install procps psmisc mpg123 x264 ffmpeg xvfb xdotool x11-apps zenity winbind cabextract gawk sed >/dev/null || die "* main apt fail!"
+	sudo apt-get -q -y install procps psmisc mpg123 x264 imagemagick ffmpeg xvfb xdotool x11-apps zenity winbind cabextract gawk sed >/dev/null || die "* main apt fail!"
 }
 
 install_full_fixed() {
 	configure_wine_for_full_base
-	sudo apt-get -q -y install procps psmisc mpg123 x264 ffmpeg xvfb xdotool x11-apps zenity winbind cabextract gawk sed winehq-staging="${WINEHQ_STAGING_VERSION}"~"${UBUNTU_DISTRO}" wine-staging="${WINEHQ_STAGING_VERSION}"~"${UBUNTU_DISTRO}" wine-staging-amd64="${WINEHQ_STAGING_VERSION}"~"${UBUNTU_DISTRO}" wine-staging-i386="${WINEHQ_STAGING_VERSION}"~"${UBUNTU_DISTRO}" >/dev/null || die "* main apt fail!"
+	sudo apt-get -q -y install procps psmisc mpg123 x264 imagemagick ffmpeg xvfb xdotool x11-apps zenity winbind cabextract gawk sed winehq-staging="${WINEHQ_STAGING_VERSION}"~"${UBUNTU_DISTRO}" wine-staging="${WINEHQ_STAGING_VERSION}"~"${UBUNTU_DISTRO}" wine-staging-amd64="${WINEHQ_STAGING_VERSION}"~"${UBUNTU_DISTRO}" wine-staging-i386="${WINEHQ_STAGING_VERSION}"~"${UBUNTU_DISTRO}" >/dev/null || die "* main apt fail!"
 }
 
 install_full_last() {
 	configure_wine_for_full_base
-	sudo apt-get -q -y install procps psmisc mpg123 x264 ffmpeg xvfb xdotool x11-apps zenity winbind cabextract gawk sed winehq-staging wine-staging wine-staging-amd64 wine-staging-i386 >/dev/null || die "* main apt fail!"
+	sudo apt-get -q -y install procps psmisc mpg123 x264 imagemagick ffmpeg xvfb xdotool x11-apps zenity winbind cabextract gawk sed winehq-staging wine-staging wine-staging-amd64 wine-staging-i386 >/dev/null || die "* main apt fail!"
 }
 
 install_minimal_local_fixed() {
