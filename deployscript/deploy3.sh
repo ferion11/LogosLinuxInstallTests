@@ -101,12 +101,116 @@ close_wine_gecko_init_windows() {
 }
 
 wait_window_and_print(){
-	echo "* start waiting for $@ ..."
+	echo "* start waiting for $* ..."
 	while ! WID=$(xdotool search --name "$@"); do
 		sleep "0.2"
 	done
 	echo "... found \"${*}\"! And print:"
 	printscreen
+}
+
+dotnet48_install_window(){
+	while ! WID=$(xdotool search --name "Unnamed"); do
+		sleep "1"
+	done
+	sleep 3
+	printscreen
+	echo "* Sending installer keystrokes..."
+	#-------
+	xdotool key --delay 500 Tab
+	sleep "0.5"
+	xdotool key --delay 500 Tab
+	sleep "0.5"
+	xdotool key --delay 500 Tab
+	sleep "0.5"
+	#select checkbox
+	xdotool key --delay 500 space
+	sleep "0.5"
+	xdotool key --delay 500 Tab
+	sleep "0.5"
+	xdotool key --delay 500 Tab
+	sleep "0.5"
+	xdotool key --delay 500 Tab
+	sleep "0.5"
+	printscreen
+	xdotool key --delay 500 space
+	#-------
+	sleep 30
+	while true; do
+		sleep "3"
+		xwd -display $DISPLAY -root -silent | convert xwd:- png:./current3.png
+		PIXELS_DIFF=$(compare -metric AE ./current3.png ./img/dotnet4_end.png null: 2>&1)
+		rm current3.png
+		#using 15000 or more (because the diff is larger, like 145699, and we avoid font issues, that is around 5000 in 2-3 lines +3buttons changes)
+		[ "${PIXELS_DIFF}" -gt "15000" ] || break
+	done
+	# printscreen to update the dotnet4_end.png
+	printscreen
+	xdotool key --delay 500 Tab
+	sleep "0.5"
+	printscreen
+	xdotool key --delay 500 space
+	#-------
+	while ! WID=$(xdotool search --name "Microsoft .NET Framework"); do
+		sleep "1"
+	done
+	sleep 3
+	xdotool key --delay 500 Tab
+	sleep "0.5"
+	xdotool key --delay 500 Tab
+	sleep "0.5"
+	xdotool key --delay 500 Tab
+	sleep "0.5"
+	xdotool key --delay 500 Tab
+	sleep "0.5"
+	printscreen
+	xdotool key --delay 500 space
+	#-------
+	while ! WID=$(xdotool search --name "Unnamed"); do
+		sleep "1"
+	done
+	sleep 3
+	xdotool key --delay 500 Tab
+	sleep "0.5"
+	xdotool key --delay 500 Tab
+	sleep "0.5"
+	xdotool key --delay 500 Tab
+	sleep "0.5"
+	# select checkbox
+	xdotool key --delay 500 space
+	sleep "0.5"
+	xdotool key --delay 500 Tab
+	sleep "0.5"
+	xdotool key --delay 500 Tab
+	sleep "0.5"
+	printscreen
+	xdotool key --delay 500 space
+	#-------
+	sleep 30
+	while true; do
+		sleep "3"
+		xwd -display $DISPLAY -root -silent | convert xwd:- png:./current3.png
+		PIXELS_DIFF=$(compare -metric AE ./current3.png ./img/dotnet48_end.png null: 2>&1)
+		rm current3.png
+		#using 15000 or more (because the diff is larger, like 145699, and we avoid font issues, that is around 5000 in 2-3 lines +3buttons changes)
+		[ "${PIXELS_DIFF}" -gt "15000" ] || break
+	done
+	# printscreen to update the dotnet48_end.png
+	printscreen
+	xdotool key --delay 500 Tab
+	sleep "0.5"
+	printscreen
+	xdotool key --delay 500 space
+	#-------
+	while ! WID=$(xdotool search --name "Microsoft .NET Framework"); do
+		sleep "1"
+	done
+	sleep 3
+	xdotool key --delay 500 Tab
+	sleep "0.5"
+	printscreen
+	xdotool key --delay 500 space
+	#-------
 }
 
 logos_install_window(){
@@ -261,6 +365,7 @@ wait_window_and_print "Winetricks fontsmooth"
 
 echo "* waiting Winetricks dotnet48"
 wait_window_and_print "Winetricks dotnet48"
+dotnet48_install_window
 
 echo "* waiting Winetricks dotnet48 end..."
 echo "find sub-process winetricks:"
