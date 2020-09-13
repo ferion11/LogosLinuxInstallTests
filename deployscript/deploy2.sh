@@ -108,10 +108,21 @@ wait_window_and_print(){
 }
 
 dotnet48_install_window(){
-	while ! WID=$(xdotool search --name "Unnamed"); do
+	#-------
+	while ! WID=$(xdotool search --name "Extracting*"); do
 		sleep "1"
 	done
-	sleep 3
+	printscreen
+	sleep 7
+	while true; do
+		sleep "3"
+		xwd -display $DISPLAY -root -silent | convert xwd:- png:./current2.png
+		PIXELS_DIFF=$(compare -metric AE ./current2.png ./img/dotnet4_start.png null: 2>&1)
+		rm current2.png
+		#using 15000 or more (because the diff is larger, like 145699, and we avoid font issues, that is around 5000 in 2-3 lines +3buttons changes)
+		[ "${PIXELS_DIFF}" -gt "15000" ] || break
+	done
+	# printscreen to update the dotnet4_end.png
 	printscreen
 	echo "* Sending installer keystrokes..."
 	#-------
@@ -133,7 +144,7 @@ dotnet48_install_window(){
 	printscreen
 	xdotool key --delay 500 space
 	#-------
-	sleep 30
+	sleep 120
 	while true; do
 		sleep "3"
 		xwd -display $DISPLAY -root -silent | convert xwd:- png:./current2.png
@@ -149,7 +160,12 @@ dotnet48_install_window(){
 	printscreen
 	xdotool key --delay 500 space
 	#-------
-	while ! WID=$(xdotool search --name "Microsoft .NET Framework"); do
+	while ! WID=$(xdotool search --name "Extracting*"); do
+		sleep "1"
+	done
+	printscreen
+	sleep 7
+	while ! WID=$(xdotool search --name "Microsoft*"); do
 		sleep "1"
 	done
 	sleep 3
@@ -164,9 +180,6 @@ dotnet48_install_window(){
 	printscreen
 	xdotool key --delay 500 space
 	#-------
-	while ! WID=$(xdotool search --name "Unnamed"); do
-		sleep "1"
-	done
 	sleep 3
 	xdotool key --delay 500 Tab
 	sleep "0.5"
@@ -184,7 +197,7 @@ dotnet48_install_window(){
 	printscreen
 	xdotool key --delay 500 space
 	#-------
-	sleep 30
+	sleep 120
 	while true; do
 		sleep "3"
 		xwd -display $DISPLAY -root -silent | convert xwd:- png:./current2.png
@@ -200,7 +213,7 @@ dotnet48_install_window(){
 	printscreen
 	xdotool key --delay 500 space
 	#-------
-	while ! WID=$(xdotool search --name "Microsoft .NET Framework"); do
+	while ! WID=$(xdotool search --name "Microsoft*"); do
 		sleep "1"
 	done
 	sleep 3
