@@ -109,8 +109,8 @@ dotnet48_install_window(){
 		xwd -display $DISPLAY -root -silent | convert xwd:- png:./current1.png
 		PIXELS_DIFF=$(compare -metric AE ./current1.png ./img/dotnet4_start.png null: 2>&1)
 		rm current1.png
-		#using 15000 or more (because the diff is larger, like 145699, and we avoid font issues, that is around 5000 in 2-3 lines +3buttons changes)
-		[ "${PIXELS_DIFF}" -gt "15000" ] || break
+		#using 20000 or more (because the diff is larger, like 145699, and we avoid font issues, that is around 5000 in 2-3 lines +3buttons changes)
+		[ "${PIXELS_DIFF}" -gt "20000" ] || break
 	done
 	# printscreen to update the dotnet4_end.png
 	printscreen
@@ -140,8 +140,8 @@ dotnet48_install_window(){
 		xwd -display $DISPLAY -root -silent | convert xwd:- png:./current1.png
 		PIXELS_DIFF=$(compare -metric AE ./current1.png ./img/dotnet4_end.png null: 2>&1)
 		rm current1.png
-		#using 15000 or more (because the diff is larger, like 145699, and we avoid font issues, that is around 5000 in 2-3 lines +3buttons changes)
-		[ "${PIXELS_DIFF}" -gt "15000" ] || break
+		#using 20000 or more (because the diff is larger, like 145699, and we avoid font issues, that is around 5000 in 2-3 lines +3buttons changes)
+		[ "${PIXELS_DIFF}" -gt "20000" ] || break
 	done
 	# printscreen to update the dotnet4_end.png
 	printscreen
@@ -193,8 +193,8 @@ dotnet48_install_window(){
 		xwd -display $DISPLAY -root -silent | convert xwd:- png:./current1.png
 		PIXELS_DIFF=$(compare -metric AE ./current1.png ./img/dotnet48_end.png null: 2>&1)
 		rm current1.png
-		#using 15000 or more (because the diff is larger, like 145699, and we avoid font issues, that is around 5000 in 2-3 lines +3buttons changes)
-		[ "${PIXELS_DIFF}" -gt "15000" ] || break
+		#using 20000 or more (because the diff is larger, like 145699, and we avoid font issues, that is around 5000 in 2-3 lines +3buttons changes)
+		[ "${PIXELS_DIFF}" -gt "20000" ] || break
 	done
 	# printscreen to update the dotnet48_end.png
 	printscreen
@@ -248,8 +248,8 @@ logos_install_window(){
 		xwd -display $DISPLAY -root -silent | convert xwd:- png:./current1.png
 		PIXELS_DIFF=$(compare -metric AE ./current1.png ./img/logos_inst_end.png null: 2>&1)
 		rm current1.png
-		#using 15000 or more (because the diff is larger, like 145699, and we avoid font issues, that is around 5000 in 2-3 lines +3buttons changes)
-		[ "${PIXELS_DIFF}" -gt "15000" ] || break
+		#using 20000 or more (because the diff is larger, like 145699, and we avoid font issues, that is around 5000 in 2-3 lines +3buttons changes)
+		[ "${PIXELS_DIFF}" -gt "20000" ] || break
 	done
 	printscreen
 	xdotool key --delay 500 space
