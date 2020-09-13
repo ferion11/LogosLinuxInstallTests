@@ -255,14 +255,19 @@ logos_install_window(){
 	sleep 3
 	printscreen
 	xdotool key --delay 500 space
-	echo "... waiting 30s for the last screen ..."
-	printscreen
-	sleep 2
-	printscreen
-	sleep 28
-	echo "... end of 30s, screenshot and space key:"
+	#-------
+	sleep 3
+	while true; do
+		sleep "3"
+		xwd -display $DISPLAY -root -silent | convert xwd:- png:./current4.png
+		PIXELS_DIFF=$(compare -metric AE ./current4.png ./img/logos_inst_end.png null: 2>&1)
+		rm current4.png
+		#using 15000 or more (because the diff is larger, like 145699, and we avoid font issues, that is around 5000 in 2-3 lines +3buttons changes)
+		[ "${PIXELS_DIFF}" -gt "15000" ] || break
+	done
 	printscreen
 	xdotool key --delay 500 space
+	#-------
 }
 
 echo "* Starting the video record:"
