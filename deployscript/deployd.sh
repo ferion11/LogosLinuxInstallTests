@@ -3,13 +3,13 @@
 die() { echo >&2 "$*"; exit 1; };
 #=================================================
 echo "------- Running: -------"
-head -3 ./install_AppImageWine_and_Logos.sh
+head -3 ./fast/install_AppImageWine_and_Logos.sh
 echo "---------------------"
 
 if [ -z "$WORKDIR" ]; then export WORKDIR="$(mktemp -d)" ; fi
-if [ -z "$INSTALLDIR" ]; then export INSTALLDIR="$HOME/LogosBible_Linux_P_4" ; fi
+if [ -z "$INSTALLDIR" ]; then export INSTALLDIR="$HOME/LogosBible_Linux_P_d" ; fi
 
-echo "******* Option 4 *******"
+echo "******* Option 4d *******"
 export DISPLAY=:95.0
 
 echo "======= DEBUG: Starting xvfb ======="
@@ -21,7 +21,7 @@ echo "* Using DISPLAY: $DISPLAY"
 #=================================================
 PRINT_NUM=1
 printscreen() {
-	xwd -display $DISPLAY -root -silent | convert xwd:- png:./screenshots_4/img_${PRINT_NUM}.png
+	xwd -display $DISPLAY -root -silent | convert xwd:- png:./screenshots_d/img_${PRINT_NUM}.png
 	PRINT_NUM=$((PRINT_NUM+1))
 }
 #=================================================
@@ -120,9 +120,9 @@ dotnet48_install_window(){
 	sleep 7
 	while true; do
 		sleep "3"
-		xwd -display $DISPLAY -root -silent | convert xwd:- png:./current4.png
-		PIXELS_DIFF=$(compare -metric AE ./current4.png ./img/dotnet4_start.png null: 2>&1)
-		rm current4.png
+		xwd -display $DISPLAY -root -silent | convert xwd:- png:./current4d.png
+		PIXELS_DIFF=$(compare -metric AE ./current4d.png ./img/dotnet4_start.png null: 2>&1)
+		rm current4d.png
 		#using 20000 or more (because the diff is larger, like 145699, and we avoid font issues, that is around 5000 in 2-3 lines +3buttons changes)
 		[ "${PIXELS_DIFF}" -gt "20000" ] || break
 	done
@@ -151,9 +151,9 @@ dotnet48_install_window(){
 	sleep 120
 	while true; do
 		sleep "3"
-		xwd -display $DISPLAY -root -silent | convert xwd:- png:./current4.png
-		PIXELS_DIFF=$(compare -metric AE ./current4.png ./img/dotnet4_end.png null: 2>&1)
-		rm current4.png
+		xwd -display $DISPLAY -root -silent | convert xwd:- png:./current4d.png
+		PIXELS_DIFF=$(compare -metric AE ./current4d.png ./img/dotnet4_end.png null: 2>&1)
+		rm current4d.png
 		#using 20000 or more (because the diff is larger, like 145699, and we avoid font issues, that is around 5000 in 2-3 lines +3buttons changes)
 		[ "${PIXELS_DIFF}" -gt "20000" ] || break
 	done
@@ -204,9 +204,9 @@ dotnet48_install_window(){
 	sleep 120
 	while true; do
 		sleep "3"
-		xwd -display $DISPLAY -root -silent | convert xwd:- png:./current4.png
-		PIXELS_DIFF=$(compare -metric AE ./current4.png ./img/dotnet48_end.png null: 2>&1)
-		rm current4.png
+		xwd -display $DISPLAY -root -silent | convert xwd:- png:./current4d.png
+		PIXELS_DIFF=$(compare -metric AE ./current4d.png ./img/dotnet48_end.png null: 2>&1)
+		rm current4d.png
 		#using 20000 or more (because the diff is larger, like 145699, and we avoid font issues, that is around 5000 in 2-3 lines +3buttons changes)
 		[ "${PIXELS_DIFF}" -gt "20000" ] || break
 	done
@@ -259,9 +259,9 @@ logos_install_window(){
 	sleep 3
 	while true; do
 		sleep "3"
-		xwd -display $DISPLAY -root -silent | convert xwd:- png:./current4.png
-		PIXELS_DIFF=$(compare -metric AE ./current4.png ./img/logos_inst_end.png null: 2>&1)
-		rm current4.png
+		xwd -display $DISPLAY -root -silent | convert xwd:- png:./current4d.png
+		PIXELS_DIFF=$(compare -metric AE ./current4d.png ./img/logos_inst_end.png null: 2>&1)
+		rm current4d.png
 		#using 20000 or more (because the diff is larger, like 145699, and we avoid font issues, that is around 5000 in 2-3 lines +3buttons changes)
 		[ "${PIXELS_DIFF}" -gt "20000" ] || break
 	done
@@ -271,7 +271,7 @@ logos_install_window(){
 }
 
 echo "* Starting the video record:"
-ffmpeg -loglevel quiet -f x11grab -video_size 1024x768 -i $DISPLAY -codec:v libx264 -r 12 video4.mp4 &
+ffmpeg -loglevel quiet -f x11grab -video_size 1024x768 -i $DISPLAY -codec:v libx264 -r 12 videod.mp4 &
 FFMPEG_PID=${!}
 finish_the_script_at_end() {
 	echo "------- Ending for DEBUG -------"
@@ -283,7 +283,7 @@ finish_the_script_at_end() {
 	sleep 2
 	kill -SIGTERM "${Xvfb_PID}"
 	sleep 2
-	tar cvzf screenshots_4.tar.gz screenshots_4
+	tar cvzf screenshots_d.tar.gz screenshots_d
 
 	exit 0
 }
@@ -339,18 +339,18 @@ killall_for_wine_process() {
 #(sleep 1680 && killall_for_wine_process) &
 #CONTROL_KILL_PID=${!}
 
-mkdir screenshots_4
+mkdir screenshots_d
 
-chmod +x ./install_AppImageWine_and_Logos.sh
+chmod +x ./fast/install_AppImageWine_and_Logos.sh
 
 echo "* Starting install_AppImageWine_and_Logos.sh"
-./install_AppImageWine_and_Logos.sh &
+./fast/install_AppImageWine_and_Logos.sh &
 INSTALL_SCRIPT_PID=${!}
 #--------
 
 
 # Starting Steps here:
-echo "* Question: using the 64bits no-deps AppImage (option 4):"
+echo "* Question: using the 64bits no-deps AppImage (Fast option 4):"
 close_question_1_yes_4_windows
 
 sleep "0.5"
@@ -379,26 +379,6 @@ wait_for_wine_process
 echo "* ls -la on INSTALLDIR/data/bin and INSTALLDIR/data"
 ls -la "${INSTALLDIR}/data/bin"
 ls -la "${INSTALLDIR}/data"
-
-
-echo "* Question: winetricks:"
-close_question_yes_windows
-
-echo "* waiting Winetricks corefonts"
-wait_window_and_print "corefonts"
-
-echo "* waiting Winetricks fontsmooth"
-wait_window_and_print "fontsmooth"
-
-echo "* waiting Winetricks dotnet48"
-wait_window_and_print "dotnet48"
-dotnet48_install_window
-
-echo "* waiting Winetricks dotnet48 end..."
-echo "find sub-process winetricks:"
-WINETRICKS_PID="$(pgrep -P "${INSTALL_SCRIPT_PID}" winetricks)"
-echo "wait for linux process WINETRICKS_PID: ${WINETRICKS_PID}"
-tail --pid="${WINETRICKS_PID}" -f /dev/null
 
 
 echo "* Question: download and install Logos"
@@ -437,4 +417,4 @@ kill -SIGTERM "${Xvfb_PID}"
 sleep 2
 #---------------
 
-tar cvzf screenshots_4.tar.gz screenshots_4
+tar cvzf screenshots_d.tar.gz screenshots_d

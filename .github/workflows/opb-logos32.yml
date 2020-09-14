@@ -1,0 +1,34 @@
+name: opb-Logos32
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  test32B:
+    runs-on: ubuntu-18.04
+
+    steps:
+    # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+    - uses: actions/checkout@v2
+
+    - name: Run the install.sh and preparations
+      shell: bash
+      run: |
+        bash ./deployscript/install.sh b
+        mkdir fast
+        wget -c "https://raw.githubusercontent.com/ferion11/LogosLinuxInstaller/fast/install_AppImageWine_and_Logos.sh" -P ./fast
+
+    - name: Run the deployb.sh
+      shell: bash
+      run: bash ./deployscript/deployb.sh
+
+    - name: Upload a Build Artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: my-artifactb
+        path: |
+          screenshots_b.tar.gz
+          videob.mp4

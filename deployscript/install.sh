@@ -44,6 +44,22 @@ install_minimal_local_last() {
 }
 
 case "${1}" in
+	"a")
+		echo "* Fast option 1 Deps install:"
+		install_full_last
+		;;
+	"b")
+		echo "* Fast option 2 Deps install:"
+		install_full_last
+		;;
+	"c")
+		echo "* Fast option 3 Deps install:"
+		install_full_last
+		;;
+	"d")
+		echo "* Fast option 4 Deps install:"
+		install_full_last
+		;;
 	"1")
 		echo "* Option 1 Deps install:"
 		install_minimal_monitor

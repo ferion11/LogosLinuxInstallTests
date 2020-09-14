@@ -354,16 +354,18 @@ close_question_1_yes_3_windows
 echo "* Question: wine bottle:"
 close_question_yes_windows
 
-
 echo "* Waiting to initialize wine..."
 # need another gecko step for 64bit
-echo "* wine mono cancel:"
-close_wine_mono_init_windows
-echo "* wine gecko cancel:"
-close_wine_gecko_init_windows
-sleep 7
-echo "* wine gecko cancel (part2):"
-close_wine_gecko_init_windows
+#echo "* wine mono cancel:"
+#close_wine_mono_init_windows
+#echo "* wine gecko cancel:"
+#close_wine_gecko_init_windows
+#sleep 7
+#echo "* wine gecko cancel (part2):"
+#close_wine_gecko_init_windows
+sleep 1
+printscreen
+sleep 1
 wait_for_wine_process
 
 # feedback:
