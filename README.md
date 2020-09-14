@@ -5,11 +5,17 @@
 
 Testing `install_AppImageWine_and_Logos.sh` **v2.16-rc14** and last git of the `fast version`
 
-* GitHub Actions:
+* G. Actions:
 [![Automation testing](https://github.com/ferion11/LogosLinuxInstallTests/workflows/op1-Logos32AppImage/badge.svg)](https://github.com/ferion11/LogosLinuxInstallTests/actions)
 [![Automation testing](https://github.com/ferion11/LogosLinuxInstallTests/workflows/op2-Logos32/badge.svg)](https://github.com/ferion11/LogosLinuxInstallTests/actions)
 [![Automation testing](https://github.com/ferion11/LogosLinuxInstallTests/workflows/op3-Logos64/badge.svg)](https://github.com/ferion11/LogosLinuxInstallTests/actions)
 [![Automation testing](https://github.com/ferion11/LogosLinuxInstallTests/workflows/op4-Logos64wine2/badge.svg)](https://github.com/ferion11/LogosLinuxInstallTests/actions)
+
+* G. A. Fast:
+[![Automation testing](https://github.com/ferion11/LogosLinuxInstallTests/workflows/opa-Logos32AppImage/badge.svg)](https://github.com/ferion11/LogosLinuxInstallTests/actions)
+[![Automation testing](https://github.com/ferion11/LogosLinuxInstallTests/workflows/opb-Logos32/badge.svg)](https://github.com/ferion11/LogosLinuxInstallTests/actions)
+[![Automation testing](https://github.com/ferion11/LogosLinuxInstallTests/workflows/opc-Logos64/badge.svg)](https://github.com/ferion11/LogosLinuxInstallTests/actions)
+[![Automation testing](https://github.com/ferion11/LogosLinuxInstallTests/workflows/opd-Logos64wine2/badge.svg)](https://github.com/ferion11/LogosLinuxInstallTests/actions)
 
 * Travis-ci:
 [![Automation testing](https://travis-ci.com/ferion11/LogosLinuxInstallTests.svg?branch=master)](https://travis-ci.com/ferion11/LogosLinuxInstallTests)
