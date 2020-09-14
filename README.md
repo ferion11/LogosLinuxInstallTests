@@ -1,7 +1,7 @@
-[![Automation testing](https://img.shields.io/badge/Automation-testing-sucess)](https://github.com/ferion11/LogosLinuxInstallTests) [![Installer LogosBible](https://img.shields.io/badge/Installer-LogosBible-blue)](https://www.logos.com)
+[![Automation testing](https://img.shields.io/badge/Automation-testing-sucess)](https://github.com/ferion11/LogosLinuxInstallTests) [![Installer LogosBible](https://img.shields.io/badge/Installer-LogosBible-blue)](https://www.logos.com) [![targetTest](https://img.shields.io/badge/target-LogosLinuxInstaller-orange)](https://github.com/ferion11/LogosLinuxInstaller)
 
 # LogosLinuxInstallTests
-> Tests for the [[LogosLinuxInstaller]](https://github.com/ferion11/LogosLinuxInstaller "[LogosLinuxInstaller]"): 32bits with AppImage, 32bits with native Wine, 64bits with native Wine.
+> Tests for the LogosLinuxInstaller: 32bits with AppImage, 32bits with native Wine, 64bits with native Wine.
 
 Testing `install_AppImageWine_and_Logos.sh` **v2.16-rc14** and last git of the `fast version`
 
