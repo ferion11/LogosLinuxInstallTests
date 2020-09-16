@@ -20,8 +20,7 @@ env:
 install:
   - bash deployscript/install.sh "$INSTALLATIONN"
   - wget -c "https://raw.githubusercontent.com/ferion11/LogosLinuxInstaller/master/install_AppImageWine_and_Logos.sh"
-  - mkdir fast
-  - wget -c "https://raw.githubusercontent.com/ferion11/LogosLinuxInstaller/fast/install_AppImageWine_and_Logos.sh" -P ./fast
+  - wget -c "https://raw.githubusercontent.com/ferion11/LogosLinuxInstaller/master/fast_install_AppImageWine_and_Logos.sh"
 
 script:
   - bash deployscript/deploy"$INSTALLATIONN".sh

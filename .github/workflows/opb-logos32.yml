@@ -18,8 +18,7 @@ jobs:
       shell: bash
       run: |
         bash ./deployscript/install.sh b
-        mkdir fast
-        wget -c "https://raw.githubusercontent.com/ferion11/LogosLinuxInstaller/fast/install_AppImageWine_and_Logos.sh" -P ./fast
+        wget -c "https://raw.githubusercontent.com/ferion11/LogosLinuxInstaller/master/fast_install_AppImageWine_and_Logos.sh"
 
     - name: Run the deployb.sh
       shell: bash

@@ -3,7 +3,7 @@
 die() { echo >&2 "$*"; exit 1; };
 #=================================================
 echo "------- Running: -------"
-head -3 ./fast/install_AppImageWine_and_Logos.sh
+head -3 ./fast_install_AppImageWine_and_Logos.sh
 echo "---------------------"
 
 if [ -z "$WORKDIR" ]; then export WORKDIR="$(mktemp -d)" ; fi
@@ -338,10 +338,10 @@ killall_for_wine_process() {
 
 mkdir screenshots_c
 
-chmod +x ./fast/install_AppImageWine_and_Logos.sh
+chmod +x ./fast_install_AppImageWine_and_Logos.sh
 
 echo "* Starting install_AppImageWine_and_Logos.sh"
-./fast/install_AppImageWine_and_Logos.sh &
+./fast_install_AppImageWine_and_Logos.sh &
 INSTALL_SCRIPT_PID=${!}
 #--------
 
