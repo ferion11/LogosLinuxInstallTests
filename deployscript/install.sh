@@ -52,29 +52,13 @@ case "${1}" in
 		echo "* Fast option 2 Deps install:"
 		install_full_last
 		;;
-	"c")
-		echo "* Fast option 3 Deps install:"
-		install_full_last
-		;;
-	"d")
-		echo "* Fast option 4 Deps install:"
-		install_full_last
-		;;
 	"1")
 		echo "* Option 1 Deps install:"
-		install_minimal_monitor
+		install_full_last
 		;;
 	"2")
 		echo "* Option 2 Deps install:"
 		install_full_fixed
-		;;
-	"3")
-		echo "* Option 3 Deps install:"
-		install_full_fixed
-		;;
-	"4")
-		echo "* Option 4 Deps install:"
-		install_full_last
 		;;
 	"lf")
 		echo "* Option local fixed at wine-staging ${WINEHQ_STAGING_VERSION} Deps install:"

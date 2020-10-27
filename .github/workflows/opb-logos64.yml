@@ -1,4 +1,4 @@
-name: op4-Logos64wine2
+name: opb-Logos64
 
 on:
   push:
@@ -7,7 +7,7 @@ on:
     branches: [ master ]
 
 jobs:
-  test64wine2:
+  test64B:
     runs-on: ubuntu-18.04
 
     steps:
@@ -17,17 +17,17 @@ jobs:
     - name: Run the install.sh and preparations
       shell: bash
       run: |
-        bash ./deployscript/install.sh 4
-        wget "https://raw.githubusercontent.com/ferion11/LogosLinuxInstaller/master/install_AppImageWine_and_Logos.sh"
+        bash ./deployscript/install.sh b
+        wget -c "https://raw.githubusercontent.com/ferion11/LogosLinuxInstaller/master/fast_install_AppImageWine_and_Logos.sh"
 
-    - name: Run the deploy4.sh
+    - name: Run the deployb.sh
       shell: bash
-      run: bash ./deployscript/deploy4.sh
+      run: bash ./deployscript/deployb.sh
 
     - name: Upload a Build Artifact
       uses: actions/upload-artifact@v2
       with:
-        name: my-artifact4
+        name: my-artifactb
         path: |
-          screenshots_4.tar.gz
-          video4.mp4
+          screenshots_b.tar.gz
+          videob.mp4

@@ -10,34 +10,36 @@ env:
   jobs:
     - INSTALLATIONN=a
     - INSTALLATIONN=b
-    - INSTALLATIONN=c
-    - INSTALLATIONN=d
     - INSTALLATIONN=1
     - INSTALLATIONN=2
-    - INSTALLATIONN=3
-    - INSTALLATIONN=4
+
+before_install:
+  - mkdir result
+
+  # md5sum tool
+  - wget -c "https://github.com/ferion11/libsutil/releases/download/md5sum_util_v0.1/md5sum_util.sh"
+
+  # uploadtool
+  - wget -c "https://github.com/probonopd/uploadtool/raw/master/upload.sh"
+
+  - wget -c "https://raw.githubusercontent.com/ferion11/LogosLinuxInstaller/master/install_AppImageWine_and_Logos.sh"
+  - wget -c "https://raw.githubusercontent.com/ferion11/LogosLinuxInstaller/master/fast_install_AppImageWine_and_Logos.sh"
 
 install:
   - bash deployscript/install.sh "$INSTALLATIONN"
-  - wget -c "https://raw.githubusercontent.com/ferion11/LogosLinuxInstaller/master/install_AppImageWine_and_Logos.sh"
-  - wget -c "https://raw.githubusercontent.com/ferion11/LogosLinuxInstaller/master/fast_install_AppImageWine_and_Logos.sh"
 
 script:
   - bash deployscript/deploy"$INSTALLATIONN".sh
 
 after_success:
   # result
-  - mkdir result
   - cp screenshots_"$INSTALLATIONN".tar.gz result/
   - cp video"$INSTALLATIONN".mp4 result/
 
-  # md5sum tool
-  - wget -c https://github.com/ferion11/libsutil/releases/download/md5sum_util_v0.1/md5sum_util.sh
+  # make md5sum file
   - bash md5sum_util.sh result
 
-  # uploadtool
-  - wget -c https://github.com/probonopd/uploadtool/raw/master/upload.sh
-
+  # uploading
   - |- # publish
     if [[ ("$TRAVIS_BRANCH" != "$RELEASE_BRANCH" && "$TRAVIS_BRANCH" != "$TRAVIS_TAG") || "$TRAVIS_EVENT_TYPE" != "push" ]]; then
       echo 'Publishing release to GitHub...'

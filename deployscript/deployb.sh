@@ -10,7 +10,7 @@ if [ -z "$WORKDIR" ]; then export WORKDIR="$(mktemp -d)" ; fi
 if [ -z "$INSTALLDIR" ]; then export INSTALLDIR="$HOME/LogosBible_Linux_P_b" ; fi
 
 echo "******* Option 2b *******"
-export DISPLAY=:98.0
+export DISPLAY=:97.0
 
 echo "======= DEBUG: Starting xvfb ======="
 Xvfb $DISPLAY -screen 0 1024x768x24 &
@@ -117,7 +117,7 @@ dotnet48_install_window(){
 	while true; do
 		sleep "3"
 		xwd -display $DISPLAY -root -silent | convert xwd:- png:./current2b.png
-		PIXELS_DIFF=$(compare -metric AE ./current2b.png ./img/dotnet4_start.png null: 2>&1)
+		PIXELS_DIFF="$(compare -metric AE ./current2b.png ./img/dotnet4_start.png null: 2>&1)"
 		rm current2b.png
 		#using 20000 or more (because the diff is larger, like 145699, and we avoid font issues, that is around 5000 in 2-3 lines +3buttons changes)
 		[ "${PIXELS_DIFF}" -gt "20000" ] || break
@@ -148,7 +148,7 @@ dotnet48_install_window(){
 	while true; do
 		sleep "3"
 		xwd -display $DISPLAY -root -silent | convert xwd:- png:./current2b.png
-		PIXELS_DIFF=$(compare -metric AE ./current2b.png ./img/dotnet4_end.png null: 2>&1)
+		PIXELS_DIFF="$(compare -metric AE ./current2b.png ./img/dotnet4_end.png null: 2>&1)"
 		rm current2b.png
 		#using 20000 or more (because the diff is larger, like 145699, and we avoid font issues, that is around 5000 in 2-3 lines +3buttons changes)
 		[ "${PIXELS_DIFF}" -gt "20000" ] || break
@@ -201,7 +201,7 @@ dotnet48_install_window(){
 	while true; do
 		sleep "3"
 		xwd -display $DISPLAY -root -silent | convert xwd:- png:./current2b.png
-		PIXELS_DIFF=$(compare -metric AE ./current2b.png ./img/dotnet48_end.png null: 2>&1)
+		PIXELS_DIFF="$(compare -metric AE ./current2b.png ./img/dotnet48_end.png null: 2>&1)"
 		rm current2b.png
 		#using 20000 or more (because the diff is larger, like 145699, and we avoid font issues, that is around 5000 in 2-3 lines +3buttons changes)
 		[ "${PIXELS_DIFF}" -gt "20000" ] || break
@@ -256,7 +256,7 @@ logos_install_window(){
 	while true; do
 		sleep "3"
 		xwd -display $DISPLAY -root -silent | convert xwd:- png:./current2b.png
-		PIXELS_DIFF=$(compare -metric AE ./current2b.png ./img/logos_inst_end.png null: 2>&1)
+		PIXELS_DIFF="$(compare -metric AE ./current2b.png ./img/logos_inst_end.png null: 2>&1)"
 		rm current2b.png
 		#using 20000 or more (because the diff is larger, like 145699, and we avoid font issues, that is around 5000 in 2-3 lines +3buttons changes)
 		[ "${PIXELS_DIFF}" -gt "20000" ] || break
@@ -316,15 +316,15 @@ wait_process_using_dir() {
 }
 
 wait_for_wine_process() {
-	export WINEARCH=win32
-	export WINEPREFIX="${INSTALLDIR}/data/wine32_bottle"
+	export WINEARCH=win64
+	export WINEPREFIX="${INSTALLDIR}/data/wine64_bottle"
 	#wait_process_using_dir "${WINEPREFIX}"
 	echo "* wineserver -w"
 	wineserver -w
 }
 killall_for_wine_process() {
-	export WINEARCH=win32
-	export WINEPREFIX="${INSTALLDIR}/data/wine32_bottle"
+	export WINEARCH=win64
+	export WINEPREFIX="${INSTALLDIR}/data/wine64_bottle"
 	echo "* wineserver -k"
 	wineserver -k
 }
@@ -345,7 +345,7 @@ INSTALL_SCRIPT_PID=${!}
 
 
 # Starting Steps here:
-echo "* Question: using the native 32bits installation (Fast option 2):"
+echo "* Question: using the native 64bits installation (Fast option 2):"
 close_question_1_yes_2_windows
 
 
@@ -353,9 +353,13 @@ echo "* Question: wine bottle:"
 close_question_yes_windows
 
 echo "* Waiting to initialize wine..."
+# need another gecko step for 64bit
 #echo "* wine mono cancel:"
 #close_wine_mono_init_windows
 #echo "* wine gecko cancel:"
+#close_wine_gecko_init_windows
+#sleep 7
+#echo "* wine gecko cancel (part2):"
 #close_wine_gecko_init_windows
 sleep 1
 printscreen

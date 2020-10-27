@@ -1,4 +1,4 @@
-name: op1-Logos32AppImage
+name: op2-Logos64
 
 on:
   push:
@@ -7,7 +7,7 @@ on:
     branches: [ master ]
 
 jobs:
-  test32appimage:
+  test64:
     runs-on: ubuntu-18.04
 
     steps:
@@ -17,17 +17,17 @@ jobs:
     - name: Run the install.sh and preparations
       shell: bash
       run: |
-        bash ./deployscript/install.sh 1
+        bash ./deployscript/install.sh 2
         wget "https://raw.githubusercontent.com/ferion11/LogosLinuxInstaller/master/install_AppImageWine_and_Logos.sh"
 
-    - name: Run the deploy1.sh
+    - name: Run the deploy2.sh
       shell: bash
-      run: bash ./deployscript/deploy1.sh
+      run: bash ./deployscript/deploy2.sh
 
     - name: Upload a Build Artifact
       uses: actions/upload-artifact@v2
       with:
-        name: my-artifact1
+        name: my-artifact2
         path: |
-          screenshots_1.tar.gz
-          video1.mp4
+          screenshots_2.tar.gz
+          video2.mp4
