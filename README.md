@@ -3,7 +3,7 @@
 # LogosLinuxInstallTests
 > Tests for the LogosLinuxInstaller: 64bits with native Wine and with AppImage.
 
-Testing `install_AppImageWine_and_Logos.sh` **v2.21** and `fast version` equivalent
+Testing `install_AppImageWine_and_Logos.sh` **v2.22-rc0** and `fast version` equivalent
 
 * G. Actions:
 [![Automation testing](https://github.com/ferion11/LogosLinuxInstallTests/workflows/op1-Logos64wine2/badge.svg)](https://github.com/ferion11/LogosLinuxInstallTests/actions)
