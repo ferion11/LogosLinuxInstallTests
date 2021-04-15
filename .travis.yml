@@ -31,7 +31,7 @@ install:
   - bash deployscript/install.sh "$INSTALLATIONN"
 
 script:
-  - bash deployscript/deploy"$INSTALLATIONN".sh
+  - bash deployscript/deploy.sh "$INSTALLATIONN"
 
 after_success:
   # result

@@ -20,9 +20,9 @@ jobs:
         bash ./deployscript/install.sh 1
         wget "https://raw.githubusercontent.com/ferion11/LogosLinuxInstaller/master/install_AppImageWine_and_Logos.sh"
 
-    - name: Run the deploy1.sh
+    - name: Run the deploy.sh 1
       shell: bash
-      run: bash ./deployscript/deploy1.sh
+      run: bash ./deployscript/deploy.sh 1
 
     - name: Upload a Build Artifact
       uses: actions/upload-artifact@v2
