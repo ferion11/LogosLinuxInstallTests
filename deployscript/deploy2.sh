@@ -10,7 +10,7 @@ if [ -z "$WORKDIR" ]; then export WORKDIR="$(mktemp -d)" ; fi
 if [ -z "$INSTALLDIR" ]; then export INSTALLDIR="$HOME/LogosBible_Linux_P_2" ; fi
 
 echo "******* Option 2 *******"
-export DISPLAY=:97.0
+export DISPLAY=:96.0
 
 echo "======= DEBUG: Starting xvfb ======="
 Xvfb $DISPLAY -screen 0 1024x768x24 &
@@ -122,7 +122,7 @@ dotnet48_install_window(){
 		#using 20000 or more (because the diff is larger, like 145699, and we avoid font issues, that is around 5000 in 2-3 lines +3buttons changes)
 		[ "${PIXELS_DIFF}" -gt "20000" ] || break
 	done
-	# printscreen to update the dotnet4_end.png
+	# printscreen to update the dotnet1_end.png
 	printscreen
 	echo "* Sending installer keystrokes..."
 	#-------
@@ -153,7 +153,7 @@ dotnet48_install_window(){
 		#using 20000 or more (because the diff is larger, like 145699, and we avoid font issues, that is around 5000 in 2-3 lines +3buttons changes)
 		[ "${PIXELS_DIFF}" -gt "20000" ] || break
 	done
-	# printscreen to update the dotnet4_end.png
+	# printscreen to update the dotnet1_end.png
 	printscreen
 	xdotool key --delay 500 Tab
 	sleep "0.5"
@@ -315,6 +315,7 @@ wait_process_using_dir() {
 	echo "* End of test wait_process_using_dir."
 }
 
+export PATH="${INSTALLDIR}/data/bin":$PATH
 wait_for_wine_process() {
 	export WINEARCH=win64
 	export WINEPREFIX="${INSTALLDIR}/data/wine64_bottle"
@@ -345,8 +346,12 @@ INSTALL_SCRIPT_PID=${!}
 
 
 # Starting Steps here:
-echo "* Question: using the native 64bits installation (option 2):"
+echo "* Question: using the 64bits no-deps AppImage (option 2):"
 close_question_1_yes_2_windows
+
+sleep "0.5"
+echo "* Downloading 64bits no-deps AppImage:"
+printscreen
 
 
 echo "* Question: wine bottle:"

@@ -10,8 +10,10 @@ env:
   jobs:
     - INSTALLATIONN=a
     - INSTALLATIONN=b
+    - INSTALLATIONN=c
     - INSTALLATIONN=1
     - INSTALLATIONN=2
+    - INSTALLATIONN=3
 
 before_install:
   - mkdir result

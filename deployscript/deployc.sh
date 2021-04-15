@@ -7,10 +7,10 @@ head -3 ./fast_install_AppImageWine_and_Logos.sh
 echo "---------------------"
 
 if [ -z "$WORKDIR" ]; then export WORKDIR="$(mktemp -d)" ; fi
-if [ -z "$INSTALLDIR" ]; then export INSTALLDIR="$HOME/LogosBible_Linux_P_b" ; fi
+if [ -z "$INSTALLDIR" ]; then export INSTALLDIR="$HOME/LogosBible_Linux_P_c" ; fi
 
-echo "******* Option 2b *******"
-export DISPLAY=:96.0
+echo "******* Option 3c *******"
+export DISPLAY=:97.0
 
 echo "======= DEBUG: Starting xvfb ======="
 Xvfb $DISPLAY -screen 0 1024x768x24 &
@@ -21,16 +21,18 @@ echo "* Using DISPLAY: $DISPLAY"
 #=================================================
 PRINT_NUM=1
 printscreen() {
-	xwd -display $DISPLAY -root -silent | convert xwd:- png:./screenshots_b/img_${PRINT_NUM}.png
+	xwd -display $DISPLAY -root -silent | convert xwd:- png:./screenshots_c/img_${PRINT_NUM}.png
 	PRINT_NUM=$((PRINT_NUM+1))
 }
 #=================================================
 
-close_question_1_yes_2_windows() {
+close_question_1_yes_3_windows() {
 	while ! WID=$(xdotool search --name "Question: Install Logos Bible*"); do
 		sleep "1"
 	done
 	echo "* Sending installer keystrokes..."
+	xdotool key --delay 500 Tab
+	sleep "0.5"
 	xdotool key --delay 500 Tab
 	sleep "0.5"
 	xdotool key --delay 500 Tab
@@ -116,9 +118,9 @@ dotnet48_install_window(){
 	sleep 7
 	while true; do
 		sleep "3"
-		xwd -display $DISPLAY -root -silent | convert xwd:- png:./current2b.png
-		PIXELS_DIFF="$(compare -metric AE ./current2b.png ./img/dotnet4_start.png null: 2>&1)"
-		rm current2b.png
+		xwd -display $DISPLAY -root -silent | convert xwd:- png:./current3c.png
+		PIXELS_DIFF="$(compare -metric AE ./current3c.png ./img/dotnet4_start.png null: 2>&1)"
+		rm current3c.png
 		#using 20000 or more (because the diff is larger, like 145699, and we avoid font issues, that is around 5000 in 2-3 lines +3buttons changes)
 		[ "${PIXELS_DIFF}" -gt "20000" ] || break
 	done
@@ -147,9 +149,9 @@ dotnet48_install_window(){
 	sleep 120
 	while true; do
 		sleep "3"
-		xwd -display $DISPLAY -root -silent | convert xwd:- png:./current2b.png
-		PIXELS_DIFF="$(compare -metric AE ./current2b.png ./img/dotnet4_end.png null: 2>&1)"
-		rm current2b.png
+		xwd -display $DISPLAY -root -silent | convert xwd:- png:./current3c.png
+		PIXELS_DIFF="$(compare -metric AE ./current3c.png ./img/dotnet4_end.png null: 2>&1)"
+		rm current3c.png
 		#using 20000 or more (because the diff is larger, like 145699, and we avoid font issues, that is around 5000 in 2-3 lines +3buttons changes)
 		[ "${PIXELS_DIFF}" -gt "20000" ] || break
 	done
@@ -200,9 +202,9 @@ dotnet48_install_window(){
 	sleep 120
 	while true; do
 		sleep "3"
-		xwd -display $DISPLAY -root -silent | convert xwd:- png:./current2b.png
-		PIXELS_DIFF="$(compare -metric AE ./current2b.png ./img/dotnet48_end.png null: 2>&1)"
-		rm current2b.png
+		xwd -display $DISPLAY -root -silent | convert xwd:- png:./current3c.png
+		PIXELS_DIFF="$(compare -metric AE ./current3c.png ./img/dotnet48_end.png null: 2>&1)"
+		rm current3c.png
 		#using 20000 or more (because the diff is larger, like 145699, and we avoid font issues, that is around 5000 in 2-3 lines +3buttons changes)
 		[ "${PIXELS_DIFF}" -gt "20000" ] || break
 	done
@@ -255,9 +257,9 @@ logos_install_window(){
 	sleep 3
 	while true; do
 		sleep "3"
-		xwd -display $DISPLAY -root -silent | convert xwd:- png:./current2b.png
-		PIXELS_DIFF="$(compare -metric AE ./current2b.png ./img/logos_inst_end.png null: 2>&1)"
-		rm current2b.png
+		xwd -display $DISPLAY -root -silent | convert xwd:- png:./current3c.png
+		PIXELS_DIFF="$(compare -metric AE ./current3c.png ./img/logos_inst_end.png null: 2>&1)"
+		rm current3c.png
 		#using 20000 or more (because the diff is larger, like 145699, and we avoid font issues, that is around 5000 in 2-3 lines +3buttons changes)
 		[ "${PIXELS_DIFF}" -gt "20000" ] || break
 	done
@@ -267,7 +269,7 @@ logos_install_window(){
 }
 
 echo "* Starting the video record:"
-ffmpeg -loglevel quiet -f x11grab -video_size 1024x768 -i $DISPLAY -codec:v libx264 -r 12 videob.mp4 &
+ffmpeg -loglevel quiet -f x11grab -video_size 1024x768 -i $DISPLAY -codec:v libx264 -r 12 videoc.mp4 &
 FFMPEG_PID=${!}
 finish_the_script_at_end() {
 	echo "------- Ending for DEBUG -------"
@@ -279,7 +281,7 @@ finish_the_script_at_end() {
 	sleep 2
 	kill -SIGTERM "${Xvfb_PID}"
 	sleep 2
-	tar cvzf screenshots_b.tar.gz screenshots_b
+	tar cvzf screenshots_c.tar.gz screenshots_c
 
 	exit 0
 }
@@ -315,7 +317,6 @@ wait_process_using_dir() {
 	echo "* End of test wait_process_using_dir."
 }
 
-export PATH="${INSTALLDIR}/data/bin":$PATH
 wait_for_wine_process() {
 	export WINEARCH=win64
 	export WINEPREFIX="${INSTALLDIR}/data/wine64_bottle"
@@ -335,7 +336,7 @@ killall_for_wine_process() {
 #(sleep 1680 && killall_for_wine_process) &
 #CONTROL_KILL_PID=${!}
 
-mkdir screenshots_b
+mkdir screenshots_c
 
 chmod +x ./fast_install_AppImageWine_and_Logos.sh
 
@@ -346,12 +347,8 @@ INSTALL_SCRIPT_PID=${!}
 
 
 # Starting Steps here:
-echo "* Question: using the 64bits no-deps AppImage (Fast option 2):"
-close_question_1_yes_2_windows
-
-sleep "0.5"
-echo "* Downloading 64bits no-deps AppImage:"
-printscreen
+echo "* Question: using the native 64bits installation (Fast option 3):"
+close_question_1_yes_3_windows
 
 
 echo "* Question: wine bottle:"
@@ -413,4 +410,4 @@ kill -SIGTERM "${Xvfb_PID}"
 sleep 2
 #---------------
 
-tar cvzf screenshots_b.tar.gz screenshots_b
+tar cvzf screenshots_c.tar.gz screenshots_c

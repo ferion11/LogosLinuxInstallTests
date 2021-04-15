@@ -2,7 +2,7 @@
 #=========================
 die() { echo >&2 "$*"; exit 1; };
 #=========================
-export WINEHQ_STAGING_VERSION="5.11"
+export WINEHQ_STAGING_VERSION="6.5"
 export UBUNTU_DISTRO="bionic"
 export UBUNTU_MIRROR="http://archive.ubuntu.com/ubuntu/"
 
@@ -52,12 +52,20 @@ case "${1}" in
 		echo "* Fast option 2 Deps install:"
 		install_full_last
 		;;
+	"c")
+		echo "* Fast option 3 Deps install:"
+		install_full_last
+		;;
 	"1")
 		echo "* Option 1 Deps install:"
 		install_full_last
 		;;
 	"2")
 		echo "* Option 2 Deps install:"
+		install_full_last
+		;;
+	"3")
+		echo "* Option 3 Deps install:"
 		install_full_fixed
 		;;
 	"lf")

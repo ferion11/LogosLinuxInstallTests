@@ -1,4 +1,4 @@
-name: opb-Logos64
+name: opb-Logos64wine2
 
 on:
   push:
@@ -7,7 +7,7 @@ on:
     branches: [ master ]
 
 jobs:
-  test64B:
+  test64wine2A:
     runs-on: ubuntu-18.04
 
     steps:
